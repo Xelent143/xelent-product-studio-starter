@@ -1,0 +1,26 @@
+{
+ "brand": "",
+ "product": {
+  "name": "",
+  "noun": "",
+  "details": "",
+  "fabric": "",
+  "photos": {"front": "", "back": "", "left": "", "right": "", "detail": "", "open": ""},
+  "colorways": []
+ },
+ "model": {"type": "ai", "description": "", "photo": "", "consent": false},
+ "outfit": "",
+ "style": "",
+ "look": "",
+ "destination": "",
+ "aspect": "portrait",
+ "duration": 10,
+ "resolution": "768p",
+ "sound": "keep",
+ "transitions": "auto",
+ "sport": "",
+ "feature": "",
+ "detail_focus": "",
+ "factory": {"decoration": ""},
+ "notes": ""
+}

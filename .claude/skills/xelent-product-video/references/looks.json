@@ -1,0 +1,126 @@
+{
+ "_about": "Visual looks offered to the user. Each shot's prompt carries its own setting, light, grade and sound lines, because a setting shared across shots drags outdoor shots indoors. fade: whether multi-shot edits cross-fade (true) or cut (false) by default.",
+ "looks": [
+  {
+   "id": "studio",
+   "name": "Clean studio",
+   "pitch": "Seamless light-grey studio, soft even light, true colours. The classic catalogue look.",
+   "best_for": "Etsy, Alibaba, website product pages, any product",
+   "setting": "a seamless light grey photo studio cyclorama with nothing else in view",
+   "light": "soft, even, shadowless studio lighting from large softboxes; true, accurate colours",
+   "grade": "clean, neutral, high-end e-commerce look",
+   "sound": "quiet studio room tone and soft footsteps; no music, no speech",
+   "fade": false
+  },
+  {
+   "id": "editorial",
+   "name": "Fashion editorial",
+   "pitch": "Hard directional light, deep shadows and a coloured backdrop, like a magazine shoot.",
+   "best_for": "Fashion brands, streetwear, premium outerwear, Instagram",
+   "setting": "a fashion studio with a plain deep-coloured paper backdrop",
+   "light": "hard directional key light from one side with crisp shadows and a subtle rim light",
+   "grade": "high-contrast, rich, magazine editorial look",
+   "sound": "quiet studio room tone; no music, no speech",
+   "fade": true
+  },
+  {
+   "id": "golden_hour",
+   "name": "Golden hour",
+   "pitch": "Warm low sunlight outdoors, soft background blur, a relaxed lifestyle feel.",
+   "best_for": "Casual wear, hoodies, lifestyle brands, Reels",
+   "setting": "an open rooftop at sunset with the city softly out of focus behind",
+   "light": "warm, low golden-hour sunlight from behind and to the side, gentle lens flare",
+   "grade": "warm, soft, cinematic lifestyle look with shallow depth of field",
+   "sound": "light breeze and distant city ambience; no music, no speech",
+   "fade": true
+  },
+  {
+   "id": "urban",
+   "name": "Urban street",
+   "pitch": "Concrete city streets on an overcast day, authentic and a little gritty.",
+   "best_for": "Streetwear, hoodies, cargo pants, jackets, TikTok",
+   "setting": "a quiet city street with concrete walls and pavements, no readable signs or logos",
+   "light": "soft overcast daylight",
+   "grade": "slightly desaturated, cool, authentic street-style look",
+   "sound": "city street ambience, distant traffic and footsteps; no music, no speech",
+   "fade": false
+  },
+  {
+   "id": "stadium",
+   "name": "Stadium floodlights",
+   "pitch": "A pitch or court at night under floodlights with a little haze. Energetic.",
+   "best_for": "Teamwear, football and basketball kits, tracksuits",
+   "setting": "a sports pitch at night under bright stadium floodlights, empty stands softly out of focus",
+   "light": "bright white floodlights from high above with light haze in the beams",
+   "grade": "punchy, high-energy sports broadcast look",
+   "sound": "open stadium ambience, distant echoing crowd murmur, ball and footstep sounds; no music, no speech",
+   "fade": false
+  },
+  {
+   "id": "gym",
+   "name": "Gym grit",
+   "pitch": "A dark gym or fight club with rim lights, chalk dust and sweat.",
+   "best_for": "Fightwear, rash guards, shorts, gym and activewear",
+   "setting": "a dark, gritty training gym with heavy bags and a ring softly out of focus",
+   "light": "moody low-key lighting with strong rim lights and light chalk dust in the air",
+   "grade": "dark, contrasty, intense training-film look",
+   "sound": "gym ambience, breathing, the thud of pads and bags; no music, no speech",
+   "fade": false
+  },
+  {
+   "id": "luxury",
+   "name": "Luxury dark",
+   "pitch": "A black set with one spotlight and slow, deliberate movement. Premium.",
+   "best_for": "Leather jackets, premium outerwear, launches and heroes",
+   "setting": "a pure black studio set with nothing else in view",
+   "light": "a single soft spotlight from above with gentle falloff into black, light haze",
+   "grade": "rich, deep blacks, premium luxury look",
+   "sound": "deep, quiet room tone; no music, no speech",
+   "fade": true
+  },
+  {
+   "id": "neon",
+   "name": "Neon night",
+   "pitch": "A city at night after rain, wet streets reflecting coloured light.",
+   "best_for": "Streetwear, techwear, jackets, bold drops",
+   "setting": "a city street at night after rain, wet ground reflecting coloured lights, no readable signs",
+   "light": "coloured neon light in magenta and cyan mixed with street lights",
+   "grade": "moody cinematic night look, rich colour",
+   "sound": "night city ambience, light rain drips, distant traffic; no music, no speech",
+   "fade": true
+  },
+  {
+   "id": "outdoors",
+   "name": "Outdoors",
+   "pitch": "A forest trail or open hills in natural light.",
+   "best_for": "Hunting and outdoor wear, windbreakers, rain jackets, hiking",
+   "setting": "a woodland trail with autumn trees and open hills beyond",
+   "light": "natural daylight filtering through the trees",
+   "grade": "natural, earthy, authentic outdoor look",
+   "sound": "birdsong, wind through the trees, footsteps on leaves; no music, no speech",
+   "fade": true
+  },
+  {
+   "id": "ugc_home",
+   "name": "Phone camera at home",
+   "pitch": "Natural daylight in a bedroom or hallway, filmed on a phone. Real-customer feel.",
+   "best_for": "TikTok and Reels ads, D2C, casual wear",
+   "setting": "a bright, tidy bedroom with a full-length mirror",
+   "light": "natural daylight from a window",
+   "grade": "natural smartphone video look, true to life",
+   "sound": "quiet room ambience; no music, no speech",
+   "fade": false
+  },
+  {
+   "id": "factory_floor",
+   "name": "Factory floor",
+   "pitch": "A bright, clean, modern garment factory. For telling your manufacturing story.",
+   "best_for": "Manufacturers, B2B, Alibaba, factory stories",
+   "setting": "a bright, clean, modern garment factory",
+   "light": "bright, even overhead factory lighting",
+   "grade": "clean, professional documentary look",
+   "sound": "factory ambience, sewing machines humming; no music, no speech",
+   "fade": false
+  }
+ ]
+}

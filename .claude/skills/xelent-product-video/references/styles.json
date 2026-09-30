@@ -1,0 +1,261 @@
+{
+ "_about": "Video styles offered to the user (styles) and the single shots they are built from (shots). video.py reads this file; edit it to add a style. A shot is one continuous MiniMax clip of 5 to 10 seconds. who: model (one person wearing the product), none (product only, no people), hands (hands only), team (several people in the same kit), process (factory work, no finished garment). {noun} is the product noun, {sport} the sport, {feature} the feature to demonstrate, {detail} the detail in focus.",
+
+ "styles": [
+  {
+   "id": "turntable",
+   "name": "360° turn",
+   "pitch": "The model turns slowly on the spot, so buyers see front, sides and back in one take.",
+   "best_for": "Every garment. The best all-round listing video: Etsy, Alibaba, website product pages.",
+   "who": "model",
+   "shots": ["turn"],
+   "edit": ["turn", "detail", "poses", "hero_close"]
+  },
+  {
+   "id": "runway",
+   "name": "Runway walk",
+   "pitch": "The model walks towards the camera, pauses, turns to show the back and walks away.",
+   "best_for": "Fashion, streetwear, outerwear, dresses. Instagram and TikTok.",
+   "who": "model",
+   "shots": ["runway"],
+   "edit": ["runway", "detail", "turn", "hero_close"]
+  },
+  {
+   "id": "lookbook",
+   "name": "Lookbook poses",
+   "pitch": "The model moves through three or four natural poses while the camera slowly pushes in.",
+   "best_for": "Streetwear, casual wear, hoodies, jackets. Brand pages and Reels.",
+   "who": "model",
+   "shots": ["poses"],
+   "edit": ["poses", "detail", "street_walk", "hero_close"]
+  },
+  {
+   "id": "street",
+   "name": "Street style",
+   "pitch": "A candid tracking shot of the model walking through a city street, like a street-style photo coming to life.",
+   "best_for": "Streetwear, sneakers-and-hoodie outfits, jackets. TikTok and Reels.",
+   "who": "model",
+   "shots": ["street_walk"],
+   "edit": ["street_walk", "detail", "poses", "hero_close"]
+  },
+  {
+   "id": "action",
+   "name": "Sport in action",
+   "pitch": "The kit worn doing the sport it is made for: a footballer dribbling, a boxer shadowboxing, a runner sprinting.",
+   "best_for": "Teamwear, fightwear, activewear, cycling and gym wear. Shows fit and movement.",
+   "who": "model",
+   "needs": ["sport"],
+   "shots": ["action"],
+   "edit": ["action", "detail", "action_close", "hero_close"]
+  },
+  {
+   "id": "detail",
+   "name": "Detail close-ups",
+   "pitch": "Slow macro camera moves over the fabric, stitching, prints, zips and labels. No people.",
+   "best_for": "Showing make quality to wholesale buyers: Alibaba, B2B websites, catalogues.",
+   "who": "none",
+   "shots": ["detail"],
+   "edit": ["detail", "ghost_spin", "detail", "flatlay"]
+  },
+  {
+   "id": "hero_reveal",
+   "name": "Hero reveal",
+   "pitch": "The garment floats on an invisible form and turns slowly under a spotlight with light haze. Premium and dramatic.",
+   "best_for": "New drops and launches, premium jackets and jerseys, website heroes. No model needed.",
+   "who": "none",
+   "shots": ["ghost_spin"],
+   "edit": ["ghost_spin", "detail", "ghost_spin", "detail"]
+  },
+  {
+   "id": "feature",
+   "name": "Performance test",
+   "pitch": "Shows one feature working in close-up: water beading off a jacket, a fabric stretching, wind on a shell.",
+   "best_for": "Outerwear, rainwear, activewear, compression and technical fabrics.",
+   "who": "model",
+   "needs": ["feature"],
+   "shots": ["feature"],
+   "edit": ["feature", "detail", "turn", "hero_close"]
+  },
+  {
+   "id": "ugc",
+   "name": "UGC try-on",
+   "pitch": "A phone-camera mirror try-on: the wearer shows the fit, turns and looks pleased. Feels like a real customer post.",
+   "best_for": "TikTok and Reels ads, D2C brands, casual wear and activewear.",
+   "who": "model",
+   "shots": ["mirror"],
+   "edit": ["mirror", "detail_hands", "mirror"]
+  },
+  {
+   "id": "team",
+   "name": "Team walk-out",
+   "pitch": "A squad in the same kit walks out of the tunnel towards the camera, shoulder to shoulder.",
+   "best_for": "Teamwear and club kits. Shows the kit as a set. Faces may vary between players.",
+   "who": "team",
+   "needs": ["sport"],
+   "shots": ["walkout"],
+   "edit": ["walkout", "action", "detail", "hero_close"]
+  },
+  {
+   "id": "flatlay",
+   "name": "Flat lay to worn",
+   "pitch": "Opens on the garment laid flat from above, then cuts to the model wearing it. Two shots.",
+   "best_for": "Etsy and Instagram. Shows the product as it arrives and as it looks on.",
+   "who": "model",
+   "min_seconds": 10,
+   "shots": ["flatlay", "turn"],
+   "edit": ["flatlay", "turn", "detail", "hero_close"]
+  },
+  {
+   "id": "factory",
+   "name": "Made in our factory",
+   "pitch": "A short manufacturing story: cutting, stitching, printing or embroidery, quality check, then the finished garment on a model.",
+   "best_for": "Manufacturers selling to brands and wholesalers: Alibaba, B2B websites, LinkedIn.",
+   "who": "model",
+   "min_seconds": 20,
+   "shots": ["process_cut", "process_sew", "process_decorate", "process_check", "hero_close"],
+   "edit": ["process_cut", "process_sew", "process_decorate", "process_check", "turn", "hero_close"]
+  },
+  {
+   "id": "colorways",
+   "name": "Colourway parade",
+   "pitch": "Quick shots of the same design in each colourway, one after another.",
+   "best_for": "Products that come in several colours. Needs a front photo for each colourway.",
+   "who": "model",
+   "needs": ["colorways"],
+   "min_seconds": 10,
+   "shots": ["colorway"],
+   "edit": ["colorway"]
+  }
+ ],
+
+ "shots": {
+  "turn": {
+   "who": "model",
+   "opening": "the model stands centred in the frame, full body from head to toe, facing the camera, arms relaxed at the sides",
+   "action": "The model turns slowly on the spot through one full circle at an even pace: front, left side, back, right side, and ends facing the camera again. The feet stay on the same spot. Calm, confident expression.",
+   "camera": "Locked-off camera at chest height; the whole body stays in frame the entire time"
+  },
+  "runway": {
+   "who": "model",
+   "opening": "the model stands at the far end of a straight walkway, full body, facing the camera",
+   "action": "The model walks towards the camera with a confident, natural stride, stops close to the camera, pauses for a beat, turns to show the back of the {noun}, then walks away.",
+   "camera": "Camera at waist height on the centre line, slowly pulling back as the model approaches; full body in frame"
+  },
+  "poses": {
+   "who": "model",
+   "opening": "the model stands three-quarter on to the camera, full body, one hand in a pocket",
+   "action": "The model moves naturally through three relaxed poses, holding each for about two seconds: hands in pockets looking at the camera, adjusting the collar or cuff of the {noun}, looking back over the shoulder.",
+   "camera": "Slow, smooth push-in from full body to three-quarter length"
+  },
+  "street_walk": {
+   "who": "model",
+   "opening": "the model walks along a pavement towards the camera, full body",
+   "action": "The model walks casually along the street towards the camera, glances to the side, then back at the camera. Natural arm swing; the {noun} moves naturally with the walk.",
+   "camera": "Handheld-style tracking shot walking backwards in front of the model, slight natural sway, full body to three-quarter length"
+  },
+  "action": {
+   "who": "model",
+   "opening": "an athlete wearing the {noun} in a ready stance for {sport}, full body",
+   "action": "The athlete performs a few seconds of {sport} with real, powerful movement at full speed, then settles and looks towards the camera. The {noun} moves and stretches naturally with the body.",
+   "camera": "Dynamic camera following the movement at a slight low angle; the athlete stays fully in frame"
+  },
+  "action_close": {
+   "who": "model",
+   "opening": "a medium close-up of the athlete wearing the {noun}, catching their breath after {sport}",
+   "action": "The athlete breathes hard, wipes the brow with the back of a hand, then looks up at the camera with determination.",
+   "camera": "Slow push-in from chest-up to a close-up"
+  },
+  "detail": {
+   "who": "none",
+   "opening": "an extreme close-up of the {detail} of the {noun}, the garment laid neatly on a flat surface",
+   "action": "The camera glides slowly across the {noun}, showing the {detail}, the fabric texture and the stitching in sharp detail. Nothing else moves.",
+   "camera": "Macro lens, very slow lateral slide with a gentle focus pull; shallow depth of field"
+  },
+  "detail_hands": {
+   "who": "hands",
+   "opening": "a close-up of two hands holding up part of the {noun}, showing the {detail}",
+   "action": "The hands turn the fabric gently towards the camera and run a thumb over the {detail} and the stitching, showing the texture.",
+   "camera": "Close-up, slow and steady, shallow depth of field; only hands and garment in frame, no faces"
+  },
+  "ghost_spin": {
+   "who": "none",
+   "opening": "the {noun} floating in mid-air on an invisible form, as if worn by an invisible person, centred, front facing the camera",
+   "action": "The {noun} turns slowly through one full circle, showing the front, the side, the back and the front again. Light haze drifts through the beam of light. No person, mannequin or hanger is visible.",
+   "camera": "Locked-off camera, the garment centred and fully in frame"
+  },
+  "feature": {
+   "who": "model",
+   "opening": "a close-up of the {noun} being worn, showing the {feature}",
+   "action": "In close-up, the {feature} is demonstrated clearly and realistically, then the camera eases back to show the wearer in the {noun}.",
+   "camera": "Close-up that slowly pulls back to a medium shot"
+  },
+  "mirror": {
+   "who": "model",
+   "opening": "the model stands in front of a full-length mirror holding a phone, the reflection shows the full outfit",
+   "action": "Filmed as a mirror selfie: the model shows off the {noun}, turns side to side, pulls the hem to show the fit, smiles and gives a small approving nod.",
+   "camera": "Phone-camera look, vertical, slight handheld movement, natural indoor daylight"
+  },
+  "walkout": {
+   "who": "team",
+   "opening": "four players in identical {noun} kits stand shoulder to shoulder at the mouth of a players' tunnel",
+   "action": "The players walk out of the tunnel together towards the camera with determined faces, in step, and stop in a line. Every player wears the same kit.",
+   "camera": "Low-angle camera pulling back slowly as the team walks forward"
+  },
+  "flatlay": {
+   "who": "none",
+   "opening": "the {noun} laid perfectly flat and neatly folded at the sleeves, seen from directly above",
+   "action": "The camera slowly descends towards the garment and rotates a few degrees, revealing the fabric texture. Nothing else moves.",
+   "camera": "Top-down overhead camera, slow descent and gentle rotation"
+  },
+  "hero_close": {
+   "who": "model",
+   "opening": "a waist-up medium shot (the frame cuts at the waist, legs not visible) of the model wearing the {noun} exactly as in the cast image, standing still, looking at the camera",
+   "action": "The model gives a small confident smile and a slight turn of the shoulders, holding the final pose.",
+   "camera": "Slow push-in from medium shot to chest-up"
+  },
+  "colorway": {
+   "who": "model",
+   "opening": "the model stands facing the camera, full body, wearing the {noun} in the {colorway} colourway",
+   "action": "The model turns a quarter to the left and back to face the camera, showing the {colorway} colourway of the {noun}.",
+   "camera": "Locked-off camera, full body in frame"
+  },
+  "process_cut": {
+   "who": "process",
+   "setting": "a bright, clean garment factory cutting room with long tables and rolls of fabric",
+   "opening": "a worker's hands guide a cutting machine along a marker laid over stacked layers of {fabric}",
+   "action": "The cutting blade moves smoothly along the pattern lines through the stacked fabric layers; cut pieces are lifted and stacked neatly.",
+   "camera": "Close-up at table height, slow tracking alongside the cutter"
+  },
+  "process_sew": {
+   "who": "process",
+   "setting": "a bright, clean garment factory sewing floor with rows of industrial sewing machines",
+   "opening": "a close-up of an industrial sewing machine needle and a worker's hands guiding panels of {fabric}",
+   "action": "The machine stitches a straight, even seam as the hands feed the fabric through at a steady pace; the camera eases back to show rows of machinists at work.",
+   "camera": "Macro close-up of the needle, then a slow pull back"
+  },
+  "process_decorate": {
+   "who": "process",
+   "setting": "a bright, clean garment factory decoration room",
+   "opening": "a close-up of {decoration} being applied to a flat panel of {fabric}",
+   "action": "The {decoration} process runs smoothly and realistically in close-up; the finished panel is lifted to show the result.",
+   "camera": "Close-up, slow and steady"
+  },
+  "process_check": {
+   "who": "process",
+   "setting": "a bright quality-control table in a garment factory",
+   "opening": "a quality inspector's hands lay a finished {noun} on a white inspection table",
+   "action": "The inspector checks the seams and the print with a measuring tape, smooths the garment and folds it neatly.",
+   "camera": "Overhead three-quarter angle, slow push-in"
+  }
+ },
+
+ "destinations": {
+  "reels": {"name": "Instagram Reels / Facebook Reels", "aspect": "portrait", "min": 5, "max": 60, "ideal": [8, 15, 30], "sound": "keep"},
+  "tiktok": {"name": "TikTok", "aspect": "portrait", "min": 5, "max": 60, "ideal": [8, 15, 30], "sound": "keep"},
+  "shorts": {"name": "YouTube Shorts", "aspect": "portrait", "min": 5, "max": 60, "ideal": [15, 30], "sound": "keep"},
+  "etsy": {"name": "Etsy listing video", "aspect": "landscape", "min": 5, "max": 15, "ideal": [8, 10, 15], "sound": "mute", "note": "Etsy accepts 5 to 15 seconds, up to 100 MB, and removes the sound."},
+  "alibaba": {"name": "Alibaba.com product video", "aspect": "landscape", "min": 5, "max": 60, "ideal": [20, 30], "sound": "keep", "note": "Check the current video limits in Alibaba Seller Center when uploading."},
+  "website": {"name": "Website or product page", "aspect": "landscape", "min": 5, "max": 60, "ideal": [10, 20, 30], "sound": "keep"},
+  "other": {"name": "Other", "aspect": "portrait", "min": 5, "max": 60, "ideal": [10, 15], "sound": "keep"}
+ }
+}
