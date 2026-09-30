@@ -289,6 +289,8 @@ def split(refs):
 def look_lines(brief, spec):
     look = LOOKS["factory_floor"] if spec["who"] == "process" else LOOKS[brief["look"]]
     setting = spec.get("setting") or look["setting"]
+    if look["id"] == "as_photo" and brief.get("scene"):
+        setting += f" ({brief['scene']})"
     return setting, look
 
 
@@ -303,6 +305,8 @@ def product_line(noun):
 
 def person_line(brief, who, has_cast):
     m = brief.get("model", {})
+    if who == "mannequin":
+        return "The garment is on the mannequin from the product photo, dressed exactly as in the photo; no person appears."
     if who == "none":
         return "No person, mannequin or hanger is visible."
     if who == "hands":
@@ -340,7 +344,7 @@ def keyframe_prompt(brief, shot, has_cast):
     if spec["who"] != "process":
         parts.append(product_line(f["noun"]))
     parts += [f"Setting: {setting}.", f"Light: {look['light']}.", f"Look: {look['grade']}.", framing(brief),
-              "Sharp, true colours, natural proportions. No text, captions or watermark."]
+              "Sharp, true colours, natural proportions. No added text, captions or watermark; the garment's own prints and lettering stay exactly as in the photos."]
     if shot.get("notes"):
         parts.append("Corrections: " + " ".join(shot["notes"]))
     return " ".join(parts)
@@ -358,7 +362,7 @@ def clip_prompt(brief, shot, has_cast):
         parts.append(product_line(f["noun"]) + " It stays the same for the whole video.")
     parts += [f"Setting: {setting}.", f"Light: {look['light']}.", f"Look: {look['grade']}.",
               "One continuous shot: no cuts, no scene changes, no new people appearing. Realistic, natural motion and anatomy.",
-              "No on-screen text, captions, logos or watermarks.", f"Sound: {look['sound']}."]
+              "No added on-screen text, captions or watermarks; the garment's own prints and lettering stay exactly as in the photos.", f"Sound: {look['sound']}."]
     if shot.get("notes"):
         parts.append("Corrections: " + " ".join(shot["notes"]))
     return " ".join(parts)

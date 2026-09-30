@@ -1,9 +1,9 @@
 ---
 name: xelent-product-video
 description: >-
-  Make short product videos of clothing with an AI model or the user's own model: 360° turns, runway walks,
-  lookbook poses, street style, sport in action, detail close-ups, hero reveals, UGC try-ons, team walk-outs and
-  factory stories, in a chosen look, length (5 to 60 seconds), shape and resolution, generated with MiniMax video on
+  Make short product videos of clothing with an AI model, the user's own model or their own mannequin photo: 360°
+  turns, mannequin 360° spins, runway walks, lookbook poses, street style, sport in action, detail close-ups, hero
+  reveals, UGC try-ons, team walk-outs and factory stories, in a chosen look, length (5 to 60 seconds), shape and resolution, generated with MiniMax video on
   Xelent API. Use this whenever the user wants a product video, fashion or apparel video, clothing reel, TikTok or
   Instagram Reel, Etsy or Alibaba listing video, lookbook video, a video of a model wearing their garment, or wants
   to animate product photos, even if they do not name the skill. Works only with a Xelent API key.
@@ -54,7 +54,10 @@ recommendation for each, so the user can answer in one line (for example "1 all 
    used the xelent-product-studio skill, offer its photos (`video.py init --from-studio <workspace> --product <id>`).
 2. **Model.** An AI model (ask for gender, age range, look, build, hair; offer to choose one that suits their
    buyers), their own model (a clear full-length photo, and they must confirm the person agreed to appear in their
-   ads; never a celebrity or a photo of someone else), or no model (styles marked "no people").
+   ads; never a celebrity or a photo of someone else), or no model: product-only styles, or **Mannequin 360°** when
+   their photo shows the garment on a mannequin (pair it with the look **Same as my photo** and describe the
+   photo's background in `scene`). A turn shows the back: without a back photo the back is invented, so ask for
+   one.
 3. **Video style.** Show the numbered styles from `options` and recommend two or three for their product and where
    it will be posted ([references/styles-guide.md](references/styles-guide.md) has the recommendations).
 4. **Look.** The numbered looks from `options`, with a recommendation.

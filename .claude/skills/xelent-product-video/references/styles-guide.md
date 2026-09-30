@@ -12,6 +12,7 @@
 | Hunting and outdoor wear | 360° turn, Street style (on a trail), Detail close-ups | Outdoors |
 | Leather jackets, premium pieces | Hero reveal, Runway walk, Lookbook poses | Luxury dark, Editorial |
 | Any product for wholesale buyers | Detail close-ups, Made in our factory, 360° turn | Clean studio, Factory floor |
+| A photo of the garment on a mannequin | Mannequin 360° (send a back photo too), Detail close-ups | Same as my photo |
 
 | Where | Shape | Length | Style |
 |---|---|---|---|
@@ -48,7 +49,10 @@ chance for the product or face to drift, so check each one.
   from the look; keep it that way when editing prompts.
 - **The finished garment appears in a factory shot.** Process shots deliberately send no product photos and no
   product description. Do not add them.
-- **Text and logos:** signs, captions or invented brand marks. Redo with "no text or signs anywhere".
+- **Text and logos:** signs, captions or invented brand marks. Redo with "no text or signs anywhere". Small print on
+  the garment itself (fine lettering, katakana, barcodes) can blur or change a little; large graphics hold.
+- **The back without a back photo** (Mannequin 360°, 360° turn, Runway walk, Hero reveal): the model invents it.
+  Ask for a back photo; if there is none, tell the user the back is a guess.
 - **Team walk-out:** each player's face is different by design, and small kit details can vary between players.
   Say so to the user when they pick it.
 

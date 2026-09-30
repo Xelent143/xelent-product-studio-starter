@@ -2,6 +2,17 @@
  "_about": "Visual looks offered to the user. Each shot's prompt carries its own setting, light, grade and sound lines, because a setting shared across shots drags outdoor shots indoors. fade: whether multi-shot edits cross-fade (true) or cut (false) by default.",
  "looks": [
   {
+   "id": "as_photo",
+   "name": "Same as my photo",
+   "pitch": "Keeps the background, floor and light of your own product photo, so the video looks like your photo coming to life.",
+   "best_for": "Mannequin 360° and any video made from photos taken in your own shop or studio",
+   "setting": "exactly the same background, floor and surroundings as in the first product photo, extended naturally to fill the frame",
+   "light": "the same lighting as in the first product photo",
+   "grade": "true to the product photo, natural colours",
+   "sound": "quiet indoor room tone; no music, no speech",
+   "fade": false
+  },
+  {
    "id": "studio",
    "name": "Clean studio",
    "pitch": "Seamless light-grey studio, soft even light, true colours. The classic catalogue look.",

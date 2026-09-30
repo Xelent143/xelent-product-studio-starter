@@ -10,6 +10,7 @@
  },
  "model": {"type": "ai", "description": "", "photo": "", "consent": false},
  "outfit": "",
+ "scene": "",
  "style": "",
  "look": "",
  "destination": "",

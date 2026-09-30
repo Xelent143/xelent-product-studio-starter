@@ -58,6 +58,15 @@
    "edit": ["detail", "ghost_spin", "detail", "flatlay"]
   },
   {
+   "id": "mannequin",
+   "name": "Mannequin 360°",
+   "pitch": "Your own mannequin photo comes to life: the mannequin turns a full circle on its stand in front of the same background while the camera stays still.",
+   "best_for": "Factories and shops that photograph garments on a mannequin. Etsy, Alibaba and website product pages. A back photo keeps the back accurate.",
+   "who": "mannequin",
+   "shots": ["mannequin_spin"],
+   "edit": ["mannequin_spin", "detail", "mannequin_spin", "detail"]
+  },
+  {
    "id": "hero_reveal",
    "name": "Hero reveal",
    "pitch": "The garment floats on an invisible form and turns slowly under a spotlight with light haze. Premium and dramatic.",
@@ -176,6 +185,12 @@
    "opening": "a close-up of two hands holding up part of the {noun}, showing the {detail}",
    "action": "The hands turn the fabric gently towards the camera and run a thumb over the {detail} and the stitching, showing the texture.",
    "camera": "Close-up, slow and steady, shallow depth of field; only hands and garment in frame, no faces"
+  },
+  "mannequin_spin": {
+   "who": "mannequin",
+   "opening": "the {noun} on the mannequin exactly as in the first product photo, the whole mannequin and garment centred in the frame, facing the camera",
+   "action": "The mannequin turns slowly on its stand through one full circle at an even pace: front, side, back, other side, and ends facing the camera again. Only the mannequin and the {noun} turn; the {noun} stays on it without moving or changing shape. The background, floor and light do not move or change.",
+   "camera": "Completely still, locked-off camera; no zoom, no pan"
   },
   "ghost_spin": {
    "who": "none",
