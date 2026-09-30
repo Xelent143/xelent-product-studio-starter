@@ -1,0 +1,12 @@
+# Generated images are large. They stay on Xelent for 7 days, and `run.mjs --restore` brings back every image
+# already paid for. Review boards (review/*.jpg) and your logo are kept, so GitHub can show them.
+**/sheets/
+**/views/
+**/refs/
+**/export/
+**/review/thumbs/
+*.part
+
+.DS_Store
+__pycache__/
+node_modules/

@@ -1,0 +1,57 @@
+{
+ "brand": {
+  "name": "",
+  "logo": null,
+  "logo_description": "",
+  "use_logo": false,
+  "voice": "Plain, confident and specific. Facts over hype."
+ },
+ "business": {
+  "kind": "manufacturer",
+  "country": "",
+  "city": "",
+  "segments": [],
+  "audience": "",
+  "capabilities": {
+   "decoration": ["sublimation", "screen print", "embroidery", "heat transfer", "woven label"],
+   "fabrics": [],
+   "moq": 50,
+   "sample_days": 7,
+   "lead_time_days": 21
+  },
+  "certifications": [],
+  "facts": []
+ },
+ "style": {
+  "background": "white",
+  "notes": ""
+ },
+ "generation": {
+  "resolution": null
+ },
+ "marketplaces": {
+  "alibaba": {
+   "enabled": true,
+   "currency": "USD",
+   "unit": "Piece",
+   "place_of_origin": "",
+   "image_order": null,
+   "xlsx": {"shipping_template": "", "lead_times": []}
+  },
+  "etsy": {
+   "enabled": true,
+   "currency": "USD",
+   "who_made": "i_did",
+   "when_made": "made_to_order",
+   "production_partner_ids": [],
+   "shipping_profile_id": null,
+   "readiness_state_id": null,
+   "return_policy_id": null,
+   "quantity": 999,
+   "disclose_ai": true,
+   "ai_disclosure_text": "Product photos are digital renderings of the made-to-order design; your item is produced to the same specification.",
+   "image_order": null
+  }
+ },
+ "products": []
+}
