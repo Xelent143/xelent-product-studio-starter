@@ -1,11 +1,13 @@
 # Xelent Product Studio: starter for Claude Code on the web
 
-Research an apparel segment, design new products, photograph them and list them on Etsy and Alibaba.com, all from
-your browser at [claude.ai/code](https://claude.ai/code). Nothing to install on your computer.
+Research an apparel segment, design new products, photograph them, make product videos and list them on Etsy and
+Alibaba.com, all from your browser at [claude.ai/code](https://claude.ai/code). Nothing to install on your computer.
 
 This repository is a ready workspace: it carries the
-[Xelent Product Studio](https://github.com/Xelent143/xelent-product-studio) skill in `.claude/skills/`, which is
-where Claude Code on the web looks for it. Images are made with [Xelent API](https://xelentapi.com) credits.
+[Xelent Product Studio](https://github.com/Xelent143/xelent-product-studio) skills in `.claude/skills/`, which is
+where Claude Code on the web looks for them: `xelent-product-studio` (research, designs, photos, listings) and
+`xelent-product-video` (product videos). Images and videos are made with [Xelent API](https://xelentapi.com)
+credits.
 
 ## What you need
 
@@ -31,6 +33,10 @@ where Claude Code on the web looks for it. Images are made with [Xelent API](htt
    > Research the teamwear market and design 5 new football jerseys for my brand "Northfield". Then list them on
    > Etsy as drafts.
 
+   or, with photos you already have (upload them to your repository first):
+
+   > Make a 15-second Instagram Reel of my hoodie on a model. The photos are in the photos folder.
+
 ## What happens next
 
 - Claude asks a few questions first: your brand, what your factory can make, and whether you want photos at
@@ -46,10 +52,9 @@ where Claude Code on the web looks for it. Images are made with [Xelent API](htt
 
 ## Keeping the skill up to date
 
-The skill in `.claude/skills/xelent-product-studio/` is copied from
+The skills in `.claude/skills/` are copied from
 [Xelent143/xelent-product-studio](https://github.com/Xelent143/xelent-product-studio). To update your copy, ask
-Claude in a session: "Update the xelent-product-studio skill from the Xelent143/xelent-product-studio-starter
-template".
+Claude in a session: "Update the Xelent skills from the Xelent143/xelent-product-studio-starter template".
 
 ## Help
 

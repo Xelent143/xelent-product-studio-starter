@@ -5,6 +5,10 @@
 **/refs/
 **/export/
 **/review/thumbs/
+**/keyframes/
+**/cast/
+**/clips/
+**/qa/
 *.part
 
 .DS_Store
