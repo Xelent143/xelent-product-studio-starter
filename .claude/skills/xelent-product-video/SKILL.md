@@ -45,9 +45,13 @@ Failed and refused jobs are never charged.
 
 ## 1. Questions (one message)
 
-Run `python3 <skill>/scripts/video.py options` for the menus. Ask everything in one numbered message with your
-recommendation for each, so the user can answer in one line (for example "1 all views, 2 AI man 30s, 3 turntable,
-4 outdoors, 5 Reels 15 s, 6 768p"):
+Run `python3 <skill>/scripts/video.py options` for the menus. **Offer the quick presets first**
+(`references/presets.json`): one choice sets the style, look, shape, length, resolution and sound, for example
+"Mannequin 360° listing video" (their mannequin photo turning in its own setting, camera still, 10 s horizontal
+1080p, silent). Recommend the one or two that fit their product and photos. If they pick a preset, apply it with
+`video.py preset --dir <dir> <id>` and ask only for what its `needs` lists (photos, model, sport, scene...). If
+they want something else, ask everything in one numbered message with your recommendation for each, so the user
+can answer in one line (for example "1 all views, 2 AI man 30s, 3 turntable, 4 outdoors, 5 Reels 15 s, 6 768p"):
 
 1. **Product photos.** As many views as they have: front and back at least; left, right, detail and open
    (inside) views make the garment more accurate. Clean product photos on a plain background work best. If they

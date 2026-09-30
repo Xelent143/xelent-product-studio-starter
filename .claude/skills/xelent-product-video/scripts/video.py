@@ -2,7 +2,8 @@
 """Product videos for clothing: brief, shot plan, prompts, review strips and the final edit.
 
   video.py init --dir D [--from-studio WS --product ID]   new video workspace (optionally with Product Studio photos)
-  video.py options                                        the menus to show the user: styles, looks, destinations
+  video.py options                                        the menus to show the user: presets, styles, looks, destinations
+  video.py preset --dir D ID                              fill brief.json from a preset (style, look, shape, length, ...)
   video.py check --dir D                                  is brief.json complete and possible?
   video.py plan --dir D                                   shot list from the brief (plan.json)
   video.py jobs --dir D --stage cast|keyframes|clips [--only N ...] [--redo N ... --note "what to fix"]
@@ -25,6 +26,8 @@ LOOKS = {l["id"]: l for l in json.load(open(os.path.join(REF, "looks.json")))["l
 STYLES = {s["id"]: s for s in CATALOG["styles"]}
 SHOTS = CATALOG["shots"]
 DESTS = CATALOG["destinations"]
+PRESETS = {p["id"]: p for p in json.load(open(os.path.join(REF, "presets.json")))["presets"]}
+PRESET_FIELDS = ["style", "look", "destination", "aspect", "duration", "resolution", "sound", "transitions"]
 
 IMAGE_MODEL = "nano-banana-2"  # stills: cast and keyframes, 2K
 VIDEO_MODEL = "minimax-h3"
@@ -82,6 +85,10 @@ def cmd_init(a):
 
 
 def cmd_options(a):
+    print("QUICK PRESETS (one choice sets the style, look, shape, length, resolution and sound)")
+    for i, p in enumerate(PRESETS.values(), 1):
+        print(f"{i:2}. {p['name']} [{p['id']}]\n    {p['pitch']}\n    Needs: {'; '.join(p['needs'])}")
+    print("\nOr build your own from the menus below.\n")
     print("VIDEO STYLES")
     for i, s in enumerate(CATALOG["styles"], 1):
         extra = f" (needs: {', '.join(s['needs'])})" if s.get("needs") else ""
@@ -95,6 +102,22 @@ def cmd_options(a):
         print(f"  {d['name']} [{k}]: {d['aspect']}, {d['min']}-{d['max']} s" + (f". {d['note']}" if d.get("note") else ""))
     print("\nLENGTH: 5 to 15 s is one continuous shot (up to 10 s at 1080p); longer videos (up to 60 s) are edits of 5-10 s shots.")
     print("RESOLUTION: 768p (default, social media) or 1080p (sharper, about 2x the price per second, 10 s per shot). 480p for drafts.")
+
+
+def cmd_preset(a):
+    D = os.path.abspath(a.dir)
+    path = os.path.join(D, "brief.json")
+    brief = read_brief(D)
+    p = PRESETS.get(a.id)
+    if not p:
+        sys.exit(f"No preset {a.id!r}. Presets: {', '.join(PRESETS)}")
+    for k in PRESET_FIELDS:
+        brief[k] = p[k]
+    if STYLES[p["style"]]["who"] != "model" and brief.get("model", {}).get("type") != "none":
+        brief["model"] = {"type": "none", "description": "", "photo": "", "consent": False}
+    save(path, brief)
+    print(f"Preset {p['name']} applied: {STYLES[p['style']]['name']}, {LOOKS[p['look']]['name']}, {p['duration']} s, "
+          f"{p['aspect']} {p['resolution']}, sound {p['sound']}.\nStill needed: {'; '.join(p['needs'])}. Then video.py check.")
 
 
 # ---------------------------------------------------------------------------
@@ -684,6 +707,7 @@ def main():
     p = sub.add_parser("init"); p.add_argument("--dir", required=True); p.add_argument("--from-studio"); p.add_argument("--product")
     p.set_defaults(fn=cmd_init)
     p = sub.add_parser("options"); p.set_defaults(fn=cmd_options)
+    p = sub.add_parser("preset"); p.add_argument("--dir", required=True); p.add_argument("id"); p.set_defaults(fn=cmd_preset)
     for name, fn in [("check", cmd_check), ("plan", cmd_plan), ("status", cmd_status), ("links", cmd_links), ("board", cmd_board)]:
         p = sub.add_parser(name); p.add_argument("--dir", required=True); p.set_defaults(fn=fn)
     p = sub.add_parser("jobs"); p.add_argument("--dir", required=True); p.add_argument("--stage", required=True, choices=["cast", "keyframes", "clips"])
