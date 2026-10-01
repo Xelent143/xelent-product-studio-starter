@@ -135,10 +135,15 @@ for (const t of todo) {
   }
   try {
     const r = await submitListing(body);
-    pub.listings[t.key] = { listing_id: r.id, status: r.status, external_id: r.external_id, external_url: r.external_url, error: r.error, hash: t.hash, at: new Date().toISOString() };
+    pub.listings[t.key] = {
+      listing_id: r.id, status: r.status, external_id: r.external_id, external_url: r.external_url, error: r.error,
+      ...(t.m === "alibaba" ? { category: r.category ?? null, alibaba_code: r.alibaba_code ?? null } : {}),
+      hash: t.hash, at: new Date().toISOString(),
+    };
     save();
+    const cat = r.category ? ` [category ${r.category.id}${r.category.name ? ` ${r.category.name}` : ""}, ${r.category.source}]` : "";
     if (r.status === "failed") { failures++; console.log(`${t.key}: FAILED: ${r.error}`); }
-    else console.log(`${t.key}: ${r.status === "draft" ? "Etsy draft created" : "sent to Alibaba for review"}  ${r.external_url ?? ""}`);
+    else console.log(`${t.key}: ${r.status === "draft" ? "Etsy draft created" : "sent to Alibaba for review"}${cat}  ${r.external_url ?? ""}`);
   } catch (e) {
     failures++;
     pub.listings[t.key] = { status: "failed", error: e.message, hash: t.hash, at: new Date().toISOString() };

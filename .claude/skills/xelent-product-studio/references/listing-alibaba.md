@@ -12,6 +12,7 @@ it again and submits it.
   "title": "Custom Sublimated Football Jersey Recycled Polyester 150 GSM Team Soccer Shirt OEM Club Kit",
   "keywords": ["sublimated soccer jersey", "custom football jersey", "team soccer uniform", "OEM football kit",
                "recycled polyester jersey", "club soccer shirt", "custom team jersey with logo", "..."],
+  "category_id": 127734135,
   "category": "Sportswear > Soccer Wear",
   "brand_name": "Xelent",
   "model_number": "XT-FB-2611",
@@ -35,6 +36,24 @@ it again and submits it.
 ```
 Brand, place of origin, currency and unit default to `studio.json` when left out.
 
+## Category (set it; never leave it to Alibaba)
+A store may only publish in the categories Alibaba has approved for it. When no `category_id` is sent, Alibaba
+predicts one from the title, and a prediction outside the store's categories is refused, often with nothing more than
+"A system error occurred" and the code `PUB_BIZCHECK_CAT_PUB_RESTRICT`. So every Alibaba listing carries `category_id`
+(Alibaba's numeric leaf category) and `category` (its path, for the reader):
+
+1. `node scripts/xelent.mjs alibaba-category "<title>"` shows the category Alibaba would choose. Show the user the
+   path and ask whether it is right for the product and is one their store sells in.
+2. When the store already has an accepted listing of the same kind of product, reuse its category:
+   `node scripts/xelent.mjs alibaba-product <listing_id>` (the `listing_id` is in `published.json`) prints the live
+   product's `category.id` and full `category.path`. A range (base layers, fleece, jackets, bibs, vests) usually needs a
+   category per garment type, not one for all.
+3. If the user is unsure, they can find the path in Seller Center (Products > Manage Products > the accepted
+   product > Category) and the id with step 1 using a title of that kind.
+
+After a submission, `published.json` records the category used (`given` or `predicted`) and Alibaba's own error code
+(`alibaba_code`). A refusal names both, so the fix is a different `category_id`, not a rewrite of the listing.
+
 ## Title (max 128 characters, plain ASCII)
 - Formula: **main keyword + material/fabric + key feature or construction + use or market + customisation**.
   "Custom Sublimated Football Jersey Recycled Polyester 150 GSM Team Soccer Shirt OEM Club Kit".
@@ -48,6 +67,8 @@ Brand, place of origin, currency and unit default to `studio.json` when left out
 - Cover: head term, long-tail variants, material, construction, decoration method, audience (men, women, kids,
   youth, club, school), use, season, OEM/ODM/private label/wholesale/custom logo variants, place (e.g. "Sialkot").
 - Every phrase must describe this product truthfully. No competitor brands, no leagues or events.
+- Do not paste the range's shared research keywords onto every listing: "hunting fleece jacket" on a base layer, or
+  "camouflage" on a solid-colour piece, misleads buyers and Alibaba's matching. `listing.py --check` warns about them.
 
 ## Attributes (values up to 70 characters)
 Buyers filter on attributes, and a listing without them drops out of filtered results. Always include, when true:
@@ -106,6 +127,8 @@ text, border, watermark or collage. See [image-direction.md](image-direction.md)
   offered). No server or Cloudflare access is involved.
 
 ## Common rejections and fixes
+- `PUB_BIZCHECK_CAT_PUB_RESTRICT`, or "A system error occurred" with a predicted category: the store may not publish
+  in that category. Set `category_id` to one the store sells in (see Category) and submit again with `--force`.
 - Title or keywords contain a brand, league, club or event name: remove it.
 - Main image has text, a collage or a coloured background: regenerate the front on white.
 - Duplicate listings for colour variants: merge into one listing.

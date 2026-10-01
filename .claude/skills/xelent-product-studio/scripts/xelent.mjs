@@ -8,6 +8,8 @@
 //   node xelent.mjs marketplaces                 which marketplaces are connected
 //   node xelent.mjs etsy-reference               Etsy shipping / processing / return / partner ids for listings
 //   node xelent.mjs etsy-taxonomy "hoodies"      search Etsy category ids
+//   node xelent.mjs alibaba-category "<title>"   the Alibaba category (id and path) a title would be filed under
+//   node xelent.mjs alibaba-product <listing_id> an Alibaba listing's live product: status, review state, category id and path
 //   node xelent.mjs prices                       per-image credits at 2K and 4K, per-second video credits, and the balance
 //   node xelent.mjs jobs [--status failed] [--q text] [--from YYYY-MM-DD] [--to YYYY-MM-DD]   job history and totals
 //   node xelent.mjs ledger [--from YYYY-MM-DD] [--to YYYY-MM-DD]   credit ledger: every credit in and out, and whether it adds up
@@ -21,7 +23,7 @@ import { fileURLToPath } from "node:url";
 export const DEFAULT_BASE = "https://api.xelentapi.com";
 const CRED = join(homedir(), ".config", "xelent", "credentials");
 
-/** Only Xelent API hosts (and a local development server) are accepted. */
+/** Only Xelent API hosts (xelentapi.com, and its card site ayzelify.com) and a local development server are accepted. */
 export function apiBase() {
   const raw = (process.env.XELENT_API_BASE || DEFAULT_BASE).replace(/\/+$/, "");
   let url;
@@ -32,7 +34,7 @@ export function apiBase() {
   }
   const host = url.hostname;
   const local = host === "localhost" || host === "127.0.0.1";
-  const xelentHost = host === "xelentapi.com" || host.endsWith(".xelentapi.com");
+  const xelentHost = ["xelentapi.com", "ayzelify.com"].some((d) => host === d || host.endsWith("." + d));
   if (!local && !xelentHost) {
     throw new Error(`This skill only works with Xelent API. ${host} is not a Xelent API host. Unset XELENT_API_BASE or point it at api.xelentapi.com.`);
   }
@@ -127,6 +129,9 @@ export async function uploadAsset(bytes, name, type) {
 export const validateListing = (payload) => xelent("/v1/listings/validate", { method: "POST", body: payload });
 export const submitListing = (payload) => xelent("/v1/listings", { method: "POST", body: payload, timeout: 300_000 });
 export const listingStatus = (id) => xelent(`/v1/listings/${id}`);
+export const alibabaCategory = (title, description = "") =>
+  xelent(`/v1/marketplaces/alibaba/category?${new URLSearchParams({ title, ...(description ? { description } : {}) })}`);
+export const alibabaProduct = (listingId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba`);
 export const marketplaces = () => xelent("/v1/marketplaces");
 
 // ---------------------------------------------------------------------------
@@ -198,7 +203,9 @@ async function cli() {
   }
   if (cmd === "etsy-reference") return console.log(JSON.stringify(await xelent("/v1/marketplaces/etsy/reference"), null, 1));
   if (cmd === "etsy-taxonomy") return console.log(JSON.stringify(await xelent(`/v1/marketplaces/etsy/taxonomy?q=${encodeURIComponent(rest.join(" "))}`), null, 1));
-  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 14).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  if (cmd === "alibaba-category") return console.log(JSON.stringify(await alibabaCategory(rest.join(" ")), null, 1));
+  if (cmd === "alibaba-product") return console.log(JSON.stringify(await alibabaProduct(rest[0] ?? ""), null, 1));
+  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 16).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

@@ -25,6 +25,10 @@ ALIBABA_SECTIONS = {"overview": r"overview|about (this|the) product|product (des
                     "customisation": r"customi[sz]|oem|odm|private label", "sizes": r"\bsize", "packaging": r"packag", "lead time": r"lead time|production time|delivery",
                     "samples": r"sample"}
 ALIBABA_ATTRS = ["Material", "Technics", "Gender", "Style", "Feature", "Supply Type"]
+# Words every listing in a range shares; a keyword made only of these says nothing about the product.
+KEYWORD_FILLER = {"custom", "customized", "oem", "odm", "wholesale", "private", "label", "men", "mens", "women", "womens", "kids",
+                  "apparel", "clothing", "clothes", "wear", "factory", "manufacturer", "supplier", "outdoor", "with", "logo", "for",
+                  "and", "the", "made", "brand", "hunting", "sports", "sportswear", "team"}
 ETSY_TAG = re.compile(r"^[\w \-'™©®]+$", re.U)
 ETSY_TITLE_FILLER = ["beautiful", "gorgeous", "amazing", "perfect", "stunning", "unique", "must have", "best", "gift for", "present for",
                      "on sale", "sale", "free shipping", "fast shipping", "best seller", "bestseller", "trending"]
@@ -94,6 +98,32 @@ def check_common(m, l, p, studio, D, title, body, tags):
     return err, warn
 
 
+GARMENTS = {"shirt", "tee", "top", "jacket", "coat", "parka", "vest", "gilet", "pant", "trouser", "bib", "overall", "short", "legging",
+            "hoodie", "sweatshirt", "pullover", "fleece", "layer", "jersey", "glove", "hat", "cap", "beanie", "sock", "suit", "uniform",
+            "shell", "softshell", "polo", "singlet", "rashguard", "gi", "kit"}
+SYNONYMS = {"camouflage": "camo", "tshirt": "tee", "trousers": "trouser", "overalls": "overall"}
+
+
+def _stem(w):
+    w = SYNONYMS.get(w, w)
+    return w[:-1] if len(w) > 3 and w.endswith("s") else w
+
+
+def stray_keywords(l):
+    """Keywords about a product this listing is not (e.g. "hunting fleece jacket" on a base layer): they name a garment
+    the title and attributes never mention, or share no product word with them at all. Range-wide keywords copied onto
+    every listing mislead buyers and Alibaba's matching."""
+    text = l.get("title", "") + " " + " ".join(f"{a.get('name', '')} {a.get('value', '')}" for a in l.get("attributes", []))
+    ref = {_stem(w) for w in words(text)}
+    out = []
+    for k in l.get("keywords", []):
+        ws = [_stem(w) for w in words(k) if w not in KEYWORD_FILLER and len(w) > 2]
+        garments = [w for w in ws if w in GARMENTS]
+        if (garments and not any(g in ref for g in garments)) or (ws and not any(w in ref for w in ws)):
+            out.append(k)
+    return out
+
+
 def check_alibaba(l, p, studio, D):
     title, body = l.get("title", ""), l.get("description_html", "")
     err, warn = check_common("alibaba", l, p, studio, D, title, text_of(body), l.get("keywords", []))
@@ -110,6 +140,14 @@ def check_alibaba(l, p, studio, D):
     if any(re.search(r"[;:,]", k) for k in kws): err.append("keywords must not contain ; : or ,")
     if 0 < len(kws) < 10: warn.append(f"{len(kws)} keywords; Alibaba's form says 15 or more get more exposure (2-5 word phrases, up to 384 characters).")
     if any(len(k.split()) == 1 for k in kws): warn.append("single-word keywords rarely match buyer searches; use 2-5 word phrases.")
+    stray = stray_keywords(l)
+    if stray: warn.append(f"keywords about a different product: {'; '.join(stray)}. Keep only phrases that describe this product.")
+    cid = l.get("category_id")
+    if cid is None:
+        warn.append('no category_id: Alibaba will guess one, and a store may only publish in its approved categories. '
+                    'Run node xelent.mjs alibaba-category "<title>" and set category_id (see listing-alibaba.md, Category).')
+    elif not (isinstance(cid, int) and cid > 0):
+        err.append("category_id must be Alibaba's numeric leaf category id.")
     if not body.strip(): err.append("description_html is required.")
     if len(body) > 20000: err.append("description_html is over 20,000 characters.")
     if re.search(r"<(script|iframe|form|object|embed)\b", body, re.I): err.append("description_html contains script, iframe, form or embed tags.")
