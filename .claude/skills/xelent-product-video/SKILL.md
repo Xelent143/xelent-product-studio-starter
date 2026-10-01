@@ -2,7 +2,8 @@
 name: xelent-product-video
 description: >-
   Make short product videos of clothing with an AI model, the user's own model or their own mannequin photo: 360°
-  turns, mannequin 360° spins, runway walks, lookbook poses, street style, sport in action, detail close-ups, hero
+  turns, mannequin 360° spins, flat-lay videos (handheld walk-around, hands-on showcase, unfold reveal, unboxing,
+  light sweep, packing), runway walks, lookbook poses, street style, sport in action, detail close-ups, hero
   reveals, UGC try-ons, team walk-outs and factory stories, in a chosen look, length (5 to 60 seconds), shape and resolution, generated with MiniMax video on
   Xelent API. Use this whenever the user wants a product video, fashion or apparel video, clothing reel, TikTok or
   Instagram Reel, Etsy or Alibaba listing video, lookbook video, a video of a model wearing their garment, or wants
@@ -61,7 +62,10 @@ can answer in one line (for example "1 all views, 2 AI man 30s, 3 turntable, 4 o
    ads; never a celebrity or a photo of someone else), or no model: product-only styles, or **Mannequin 360°** when
    their photo shows the garment on a mannequin (pair it with the look **Same as my photo** and describe the
    photo's background in `scene`). A turn shows the back: without a back photo the back is invented, so ask for
-   one.
+   one. For the **flat-lay styles** a flat-lay photo (`photos.flatlay`) is best; without one the product is laid
+   flat for them from the front and back photos, on the look's surface (or `surface` in the brief).
+   With the look **Same as my photo** and a photo already in the video's shape (16:9 or 9:16), the photo itself is
+   the opening frame: the most faithful start, at no cost.
 3. **Video style.** Show the numbered styles from `options` and recommend two or three for their product and where
    it will be posted ([references/styles-guide.md](references/styles-guide.md) has the recommendations).
 4. **Look.** The numbered looks from `options`, with a recommendation.
@@ -122,8 +126,10 @@ node    <skill>/scripts/render.mjs --dir <dir> --quote    # tell the user
 node    <skill>/scripts/render.mjs --dir <dir>            # start in the background: 6 s takes ~7 min, 10-15 s up to ~17
 ```
 
-Tell the user roughly how long it will take and give a short progress line now and then
-(`render.mjs --status`).
+Tell the user roughly how long it will take (longer when the service is busy: a clip can take 45 minutes) and give
+a short progress line now and then (`render.mjs --status`). Do not stop and restart a slow clip by hand: the runner
+waits as long as Xelent API may still deliver it, so nothing is paid for twice. Failed clips are not charged and
+are retried automatically.
 
 ## 6. Check every clip
 

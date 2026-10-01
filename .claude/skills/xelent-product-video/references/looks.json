@@ -1,5 +1,5 @@
 {
- "_about": "Visual looks offered to the user. Each shot's prompt carries its own setting, light, grade and sound lines, because a setting shared across shots drags outdoor shots indoors. fade: whether multi-shot edits cross-fade (true) or cut (false) by default.",
+ "_about": "Visual looks offered to the user. Each shot's prompt carries its own setting, light, grade and sound lines, because a setting shared across shots drags outdoor shots indoors. fade: whether multi-shot edits cross-fade (true) or cut (false) by default. surface: where flat-lay shots lay the product.",
  "looks": [
   {
    "id": "as_photo",
@@ -10,7 +10,8 @@
    "light": "the same lighting as in the first product photo",
    "grade": "true to the product photo, natural colours",
    "sound": "quiet indoor room tone; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "the same surface as in the first product photo"
   },
   {
    "id": "studio",
@@ -21,7 +22,8 @@
    "light": "soft, even, shadowless studio lighting from large softboxes; true, accurate colours",
    "grade": "clean, neutral, high-end e-commerce look",
    "sound": "quiet studio room tone and soft footsteps; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "a smooth light grey tabletop"
   },
   {
    "id": "editorial",
@@ -32,7 +34,8 @@
    "light": "hard directional key light from one side with crisp shadows and a subtle rim light",
    "grade": "high-contrast, rich, magazine editorial look",
    "sound": "quiet studio room tone; no music, no speech",
-   "fade": true
+   "fade": true,
+   "surface": "a matte deep-coloured paper surface"
   },
   {
    "id": "golden_hour",
@@ -43,7 +46,8 @@
    "light": "warm, low golden-hour sunlight from behind and to the side, gentle lens flare",
    "grade": "warm, soft, cinematic lifestyle look with shallow depth of field",
    "sound": "light breeze and distant city ambience; no music, no speech",
-   "fade": true
+   "fade": true,
+   "surface": "a weathered wooden table in warm low sunlight"
   },
   {
    "id": "urban",
@@ -54,7 +58,8 @@
    "light": "soft overcast daylight",
    "grade": "slightly desaturated, cool, authentic street-style look",
    "sound": "city street ambience, distant traffic and footsteps; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "a smooth concrete floor"
   },
   {
    "id": "stadium",
@@ -65,7 +70,8 @@
    "light": "bright white floodlights from high above with light haze in the beams",
    "grade": "punchy, high-energy sports broadcast look",
    "sound": "open stadium ambience, distant echoing crowd murmur, ball and footstep sounds; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "a locker-room bench"
   },
   {
    "id": "gym",
@@ -76,7 +82,8 @@
    "light": "moody low-key lighting with strong rim lights and light chalk dust in the air",
    "grade": "dark, contrasty, intense training-film look",
    "sound": "gym ambience, breathing, the thud of pads and bags; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "black rubber gym flooring"
   },
   {
    "id": "luxury",
@@ -87,7 +94,8 @@
    "light": "a single soft spotlight from above with gentle falloff into black, light haze",
    "grade": "rich, deep blacks, premium luxury look",
    "sound": "deep, quiet room tone; no music, no speech",
-   "fade": true
+   "fade": true,
+   "surface": "a black velvet surface"
   },
   {
    "id": "neon",
@@ -98,7 +106,8 @@
    "light": "coloured neon light in magenta and cyan mixed with street lights",
    "grade": "moody cinematic night look, rich colour",
    "sound": "night city ambience, light rain drips, distant traffic; no music, no speech",
-   "fade": true
+   "fade": true,
+   "surface": "a dark wet surface reflecting magenta and cyan neon light"
   },
   {
    "id": "outdoors",
@@ -109,7 +118,8 @@
    "light": "natural daylight filtering through the trees",
    "grade": "natural, earthy, authentic outdoor look",
    "sound": "birdsong, wind through the trees, footsteps on leaves; no music, no speech",
-   "fade": true
+   "fade": true,
+   "surface": "a wooden bench in a forest clearing"
   },
   {
    "id": "ugc_home",
@@ -120,7 +130,8 @@
    "light": "natural daylight from a window",
    "grade": "natural smartphone video look, true to life",
    "sound": "quiet room ambience; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "a neatly made bed with white sheets"
   },
   {
    "id": "factory_floor",
@@ -131,7 +142,8 @@
    "light": "bright, even overhead factory lighting",
    "grade": "clean, professional documentary look",
    "sound": "factory ambience, sewing machines humming; no music, no speech",
-   "fade": false
+   "fade": false,
+   "surface": "a clean white factory cutting table"
   }
  ]
 }

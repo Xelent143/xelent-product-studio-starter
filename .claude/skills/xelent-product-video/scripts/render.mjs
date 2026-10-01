@@ -20,7 +20,10 @@ const arg = (n, d) => { const i = argv.indexOf(n); return i > -1 && argv[i + 1] 
 const D = resolve(arg("--dir", "."));
 const CONC = +arg("--concurrency", "4");
 const MAX_TRIES = 3, MAX_NET = 8, POLL_MS = 10_000;
-const STALE_MIN = { image: 20, video: 45 }; // MiniMax takes about 7 minutes for 6 s and up to 17 for 10-15 s
+// Xelent API settles every job itself: it refunds a still not finished after 30 minutes and a video after 90. Wait
+// longer than that before giving up on an attempt, so nothing it may still charge for is ever made twice. MiniMax
+// usually takes 7 to 17 minutes, more when GrsAI is busy.
+const STALE_MIN = { image: 40, video: 100 };
 
 const JOBS = existsSync(join(D, "jobs.json")) ? JSON.parse(readFileSync(join(D, "jobs.json"), "utf8")) : [];
 const LEDGER = join(D, "ledger.json");
@@ -31,6 +34,8 @@ const log = (...a) => console.log(new Date().toTimeString().slice(0, 8), ...a);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const done = (j) => existsSync(j.out);
 const last = (j) => ledger[j.name].attempts.at(-1);
+// Attempts still worth asking about: running, or given up on by this script but not yet settled by Xelent API.
+const open = (j) => ledger[j.name].attempts.filter((a) => a.id && (a.status === "pending" || a.status === "stale"));
 const tries = (j) => ledger[j.name].attempts.filter((a) => a.id).length;
 const netErrs = (j) => ledger[j.name].attempts.filter((a) => a.status === "neterror").length;
 const gaveUp = (j) => tries(j) >= MAX_TRIES || netErrs(j) >= MAX_NET || last(j)?.status === "violation";
@@ -169,20 +174,22 @@ async function submit(j) {
 }
 
 async function poll(j) {
-  const a = last(j);
-  try {
-    const r = await generationResult(a.id);
-    if (r.status === "succeeded") {
-      const url = r.results?.[0]?.url;
-      if (!url) throw new Error("succeeded without a result url");
-      await download(url, j.out);
-      a.status = "succeeded"; a.url = url; a.credits = r.credits_used; a.doneAt = new Date().toISOString(); log("done", j.name);
-    } else if (r.status === "failed" || r.status === "violation") {
-      a.status = r.status; a.reason = r.error || "unknown"; log(r.status.toUpperCase(), j.name, a.reason, "(not charged)");
-    } else if (Date.now() - Date.parse(a.at) > STALE_MIN[j.kind] * 60_000) {
-      a.status = "stale"; log("stale, will resubmit", j.name);
-    }
-  } catch (e) { a.lastError = e.message; }
+  // Every open attempt is followed to the end: the first to succeed makes the file, the others are only recorded.
+  for (const a of open(j)) {
+    try {
+      const r = await generationResult(a.id);
+      if (r.status === "succeeded") {
+        const url = r.results?.[0]?.url;
+        if (!url) throw new Error("succeeded without a result url");
+        if (!done(j)) await download(url, j.out);
+        a.status = "succeeded"; a.url = url; a.credits = r.credits_used; a.doneAt = new Date().toISOString(); log("done", j.name);
+      } else if (r.status === "failed" || r.status === "violation") {
+        a.status = r.status; a.reason = r.error || "unknown"; log(r.status.toUpperCase(), j.name, a.reason, "(not charged)");
+      } else if (a.status === "pending" && Date.now() - Date.parse(a.at) > STALE_MIN[j.kind] * 60_000) {
+        a.status = "stale"; log("still not finished; trying again while still watching the first attempt", j.name);
+      }
+    } catch (e) { a.lastError = e.message; }
+  }
   save();
 }
 
@@ -250,7 +257,7 @@ const startedAt = new Date().toISOString();
 
 let lastLine = 0;
 for (;;) {
-  const pending = JOBS.filter((j) => !done(j) && last(j)?.status === "pending");
+  const pending = JOBS.filter((j) => open(j).length);
   if (pending.length) await pool(pending, 8, poll);
   const ready = JOBS.filter((j) => {
     if (done(j)) return false;
@@ -270,6 +277,8 @@ const s = status();
 log(`FINISHED ${s.done}/${s.total}` + (s.missing.length ? `; not made: ${s.missing.join(", ")}` : ""));
 const madeNow = JOBS.flatMap((j) => ledger[j.name].attempts).filter((a) => a.status === "succeeded" && a.doneAt >= startedAt);
 const used = +madeNow.reduce((sum, a) => sum + (a.credits ?? 0), 0).toFixed(2);
+const leftover = JOBS.filter((j) => done(j) && open(j).length).length;
+if (leftover) console.log(`NOTE: ${leftover} earlier attempt(s) are still running at Xelent API; if they finish they are charged like any job. Run render.mjs --status later to see.`);
 const now = await verifyKey().catch(() => null);
 console.log(
   `CREDITS: this run used ${used} credits for ${madeNow.length} file(s)` +

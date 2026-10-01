@@ -130,8 +130,10 @@ def problems_of(D, brief):
     photos = {k: v for k, v in (p.get("photos") or {}).items() if v}
     if not p.get("noun"):
         out.append("product.noun is empty: say what it is, e.g. 'hooded hunting jacket' or 'football jersey'.")
-    if "front" not in photos:
-        out.append("product.photos.front is missing: at least a front photo is needed (front and back is much better).")
+    flat_ok = STYLES.get(brief.get("style"), {}).get("flat") and "flatlay" in photos
+    if "front" not in photos and not flat_ok:
+        out.append("product.photos.front is missing: at least a front photo is needed (front and back is much better)"
+                   + (", or a flat-lay photo (photos.flatlay) for this style." if STYLES.get(brief.get("style"), {}).get("flat") else "."))
     for k, f in photos.items():
         if not os.path.exists(os.path.join(D, f) if not os.path.isabs(f) else f):
             out.append(f"product.photos.{k}: file not found: {f}")
@@ -274,9 +276,14 @@ def hash_brief(brief):
 # prompts
 # ---------------------------------------------------------------------------
 
+def surface_of(brief):
+    """Where flat-lay shots lay the product: the brief's own surface, or the look's."""
+    return brief.get("surface") or LOOKS[brief["look"]].get("surface") or "a clean tabletop"
+
+
 def fmt(brief, shot):
     p = brief["product"]
-    return dict(noun=p.get("noun") or "garment", sport=brief.get("sport") or "the sport", feature=brief.get("feature") or "the main feature",
+    return dict(noun=p.get("noun") or "garment", surface=surface_of(brief), sport=brief.get("sport") or "the sport", feature=brief.get("feature") or "the main feature",
                 detail=shot.get("detail") or brief.get("detail_focus") or "construction details",
                 colorway=shot.get("colorway", ""), fabric=p.get("fabric") or "the garment fabric",
                 decoration=brief.get("factory", {}).get("decoration") or "screen printing")
@@ -295,6 +302,8 @@ def product_refs(D, brief, shot, limit):
     """[(path, label)] of the product photos to send, most useful first."""
     photos = brief["product"].get("photos") or {}
     order = ["front", "back", "left", "right", "detail", "open", "flatlay"]
+    if shot and SHOTS[shot["shot"]].get("lead") == "flatlay" and photos.get("flatlay"):
+        order = ["flatlay"] + [k for k in order if k != "flatlay"]
     if shot and shot.get("colorway_photo"):
         first = [(rel(D, shot["colorway_photo"]), f"the product in the {shot['colorway']} colourway, from the front")]
         return first + [(rel(D, photos[k]), VIEW_LABEL[k] + " (colour may differ)") for k in ["back"] if photos.get(k)][: limit - 1]
@@ -311,7 +320,7 @@ def split(refs):
 
 def look_lines(brief, spec):
     look = LOOKS["factory_floor"] if spec["who"] == "process" else LOOKS[brief["look"]]
-    setting = spec.get("setting") or look["setting"]
+    setting = spec.get("setting") or (surface_of(brief) if spec.get("flat") else look["setting"])
     if look["id"] == "as_photo" and brief.get("scene"):
         setting += f" ({brief['scene']})"
     return setting, look
@@ -436,6 +445,16 @@ def cmd_jobs(a):
             sys.exit("The cast still is not approved yet. Show it to the user, then video.py approve --stage cast.")
         cast = paths(D, plan)
         for s in shots:
+            # The user's own photo, already the right shape, is the most faithful opening frame and costs nothing.
+            own = own_photo_frame(D, brief, s)
+            if own and not (a.redo and s["n"] in a.redo):
+                _, kf, _ = paths(D, plan, s)
+                if not os.path.exists(kf):
+                    from PIL import Image
+                    os.makedirs(os.path.dirname(kf), exist_ok=True)
+                    Image.open(own).convert("RGB").save(kf)
+                print(f"Shot {s['n']} opens on your photo as it is ({os.path.basename(own)}): no still to make.")
+                continue
             if a.redo and s["n"] in a.redo:
                 s["keyframe_version"] += 1
                 s["clip_version"] += 1
@@ -463,15 +482,35 @@ def cmd_jobs(a):
                 sys.exit(f"Keyframe {s['n']} is missing ({kf}). Run render.mjs --restore, or make the keyframes again.")
             refs = [(kf, "the opening frame")]
             if s["who"] != "process":
-                refs += ([(cast, "the cast: the model wearing the product")] if has_cast else []) + product_refs(D, brief, s, 9 - 1 - (1 if has_cast else 0))
+                own = own_photo_frame(D, brief, s)  # already the opening frame; do not send it twice
+                refs += ([(cast, "the cast: the model wearing the product")] if has_cast else []) + \
+                    [r for r in product_refs(D, brief, s, 9) if r[0] != own][: 9 - 1 - (1 if has_cast else 0)]
             files, labels = split(refs[:9])
             jobs.append(dict(name=f"clip-{s['n']:02d}-v{s['clip_version']}", kind="video", model=VIDEO_MODEL,
                              aspect=brief["aspect"], resolution=brief["resolution"], duration=s["seconds"],
                              refs=files, prompt=clip_prompt(brief, s, has_cast) + legend(labels), out=clip))
     save(os.path.join(D, "plan.json"), plan)
     save(os.path.join(D, "jobs.json"), jobs)
+    if not jobs:
+        print(f"Nothing to make for {a.stage}. Show the user, then approve.")
+        return
     print(f"{len(jobs)} {a.stage} job{'s' if len(jobs) != 1 else ''} written to jobs.json. "
           f"Next: node render.mjs --dir {D} --quote, tell the user the cost, then node render.mjs --dir {D}")
+
+
+def own_photo_frame(D, brief, shot):
+    """The lead photo, when the shot opens on it, the look keeps the photo's setting and its shape matches the video."""
+    spec = SHOTS[shot["shot"]]
+    if not spec.get("from_photo") or brief.get("look") != "as_photo":
+        return None
+    photos = brief["product"].get("photos") or {}
+    lead = photos.get(spec.get("lead") or "front") or photos.get("front")
+    if not lead or not os.path.exists(rel(D, lead)):
+        return None
+    from PIL import Image
+    w, h = Image.open(rel(D, lead)).size
+    target = 16 / 9 if brief["aspect"] == "landscape" else 9 / 16
+    return rel(D, lead) if abs((w / h) / target - 1) <= 0.06 else None
 
 
 def cmd_approve(a):

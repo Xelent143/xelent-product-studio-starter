@@ -1,6 +1,5 @@
 {
- "_about": "Video styles offered to the user (styles) and the single shots they are built from (shots). video.py reads this file; edit it to add a style. A shot is one continuous MiniMax clip of 5 to 10 seconds. who: model (one person wearing the product), none (product only, no people), hands (hands only), team (several people in the same kit), process (factory work, no finished garment). {noun} is the product noun, {sport} the sport, {feature} the feature to demonstrate, {detail} the detail in focus.",
-
+ "_about": "Video styles offered to the user (styles) and the single shots they are built from (shots). video.py reads this file; edit it to add a style. A shot is one continuous MiniMax clip of 5 to 10 seconds. who: model (one person wearing the product), none (product only, no people), hands (hands only), team (several people in the same kit), process (factory work, no finished garment). {noun} is the product noun, {sport} the sport, {feature} the feature to demonstrate, {detail} the detail in focus. from_photo: the shot opens on the lead photo itself, so with the look 'Same as my photo' and a photo of the right shape, the photo is used as the opening frame unchanged.",
  "styles": [
   {
    "id": "turntable",
@@ -8,8 +7,15 @@
    "pitch": "The model turns slowly on the spot, so buyers see front, sides and back in one take.",
    "best_for": "Every garment. The best all-round listing video: Etsy, Alibaba, website product pages.",
    "who": "model",
-   "shots": ["turn"],
-   "edit": ["turn", "detail", "poses", "hero_close"]
+   "shots": [
+    "turn"
+   ],
+   "edit": [
+    "turn",
+    "detail",
+    "poses",
+    "hero_close"
+   ]
   },
   {
    "id": "runway",
@@ -17,8 +23,15 @@
    "pitch": "The model walks towards the camera, pauses, turns to show the back and walks away.",
    "best_for": "Fashion, streetwear, outerwear, dresses. Instagram and TikTok.",
    "who": "model",
-   "shots": ["runway"],
-   "edit": ["runway", "detail", "turn", "hero_close"]
+   "shots": [
+    "runway"
+   ],
+   "edit": [
+    "runway",
+    "detail",
+    "turn",
+    "hero_close"
+   ]
   },
   {
    "id": "lookbook",
@@ -26,8 +39,15 @@
    "pitch": "The model moves through three or four natural poses while the camera slowly pushes in.",
    "best_for": "Streetwear, casual wear, hoodies, jackets. Brand pages and Reels.",
    "who": "model",
-   "shots": ["poses"],
-   "edit": ["poses", "detail", "street_walk", "hero_close"]
+   "shots": [
+    "poses"
+   ],
+   "edit": [
+    "poses",
+    "detail",
+    "street_walk",
+    "hero_close"
+   ]
   },
   {
    "id": "street",
@@ -35,8 +55,15 @@
    "pitch": "A candid tracking shot of the model walking through a city street, like a street-style photo coming to life.",
    "best_for": "Streetwear, sneakers-and-hoodie outfits, jackets. TikTok and Reels.",
    "who": "model",
-   "shots": ["street_walk"],
-   "edit": ["street_walk", "detail", "poses", "hero_close"]
+   "shots": [
+    "street_walk"
+   ],
+   "edit": [
+    "street_walk",
+    "detail",
+    "poses",
+    "hero_close"
+   ]
   },
   {
    "id": "action",
@@ -44,9 +71,18 @@
    "pitch": "The kit worn doing the sport it is made for: a footballer dribbling, a boxer shadowboxing, a runner sprinting.",
    "best_for": "Teamwear, fightwear, activewear, cycling and gym wear. Shows fit and movement.",
    "who": "model",
-   "needs": ["sport"],
-   "shots": ["action"],
-   "edit": ["action", "detail", "action_close", "hero_close"]
+   "needs": [
+    "sport"
+   ],
+   "shots": [
+    "action"
+   ],
+   "edit": [
+    "action",
+    "detail",
+    "action_close",
+    "hero_close"
+   ]
   },
   {
    "id": "detail",
@@ -54,8 +90,15 @@
    "pitch": "Slow macro camera moves over the fabric, stitching, prints, zips and labels. No people.",
    "best_for": "Showing make quality to wholesale buyers: Alibaba, B2B websites, catalogues.",
    "who": "none",
-   "shots": ["detail"],
-   "edit": ["detail", "ghost_spin", "detail", "flatlay"]
+   "shots": [
+    "detail"
+   ],
+   "edit": [
+    "detail",
+    "ghost_spin",
+    "detail",
+    "flatlay"
+   ]
   },
   {
    "id": "mannequin",
@@ -63,8 +106,114 @@
    "pitch": "Your own mannequin photo comes to life: the mannequin turns a full circle on its stand in front of the same background while the camera stays still.",
    "best_for": "Factories and shops that photograph garments on a mannequin. Etsy, Alibaba and website product pages. A back photo keeps the back accurate.",
    "who": "mannequin",
-   "shots": ["mannequin_spin"],
-   "edit": ["mannequin_spin", "detail", "mannequin_spin", "detail"]
+   "shots": [
+    "mannequin_spin"
+   ],
+   "edit": [
+    "mannequin_spin",
+    "detail",
+    "mannequin_spin",
+    "detail"
+   ]
+  },
+  {
+   "id": "flatlay_walk",
+   "name": "Flat lay walk-around",
+   "flat": true,
+   "pitch": "Filmed like a seller's phone video: the camera starts above the flat-laid product, glides down to a low angle, circles it and skims close over the fabric and prints.",
+   "best_for": "Reels, WhatsApp catalogues and wholesale buyers. Works from your own flat-lay photo, or from product photos (the product is laid flat for you).",
+   "who": "none",
+   "shots": [
+    "flatlay_walk"
+   ],
+   "edit": [
+    "flatlay_walk",
+    "flatlay_light",
+    "flatlay_walk",
+    "detail"
+   ]
+  },
+  {
+   "id": "flatlay_hands",
+   "name": "Hands-on flat lay",
+   "flat": true,
+   "pitch": "Hands come into frame, lift the collar to show the label, run a thumb over the stitching, flip the hem to show the inside, then smooth it flat again.",
+   "best_for": "Showing make quality to Alibaba and B2B buyers; Reels for wholesale sellers.",
+   "who": "hands",
+   "shots": [
+    "flatlay_hands"
+   ],
+   "edit": [
+    "flatlay_hands",
+    "flatlay_walk",
+    "detail_hands",
+    "flatlay_light"
+   ]
+  },
+  {
+   "id": "flatlay_unfold",
+   "name": "Unfold reveal",
+   "flat": true,
+   "pitch": "The product starts neatly folded; hands unfold it and spread it out to reveal the full print.",
+   "best_for": "Launches, Etsy and Instagram. Big front prints and graphics.",
+   "who": "hands",
+   "shots": [
+    "flatlay_unfold"
+   ],
+   "edit": [
+    "flatlay_unfold",
+    "flatlay_walk",
+    "detail_hands",
+    "flatlay_light"
+   ]
+  },
+  {
+   "id": "unboxing",
+   "name": "Unboxing",
+   "flat": true,
+   "pitch": "A plain mailer box on a table: hands open it, fold back the tissue, lift the product out and hold it up to the camera.",
+   "best_for": "D2C brands, TikTok and Reels ads, gift and premium products.",
+   "who": "hands",
+   "shots": [
+    "unboxing"
+   ],
+   "edit": [
+    "unboxing",
+    "flatlay_hands",
+    "flatlay_walk"
+   ]
+  },
+  {
+   "id": "light_sweep",
+   "name": "Light sweep",
+   "flat": true,
+   "pitch": "The camera stays still above the flat lay while a beam of light sweeps across it, making texture, embroidery and reflective prints shine.",
+   "best_for": "Techwear, reflective prints, embroidery and premium fabrics. Website heroes.",
+   "who": "none",
+   "shots": [
+    "flatlay_light"
+   ],
+   "edit": [
+    "flatlay_light",
+    "flatlay_walk",
+    "detail",
+    "flatlay_light"
+   ]
+  },
+  {
+   "id": "packing",
+   "name": "Packed for shipment",
+   "pitch": "Hands fold the product neatly, slide it into a polybag with a size sticker and place it in a carton.",
+   "best_for": "Manufacturers showing packing quality to wholesale buyers: Alibaba, B2B websites, LinkedIn.",
+   "who": "hands",
+   "shots": [
+    "packing"
+   ],
+   "edit": [
+    "flatlay_hands",
+    "packing",
+    "flatlay_walk"
+   ]
   },
   {
    "id": "hero_reveal",
@@ -72,8 +221,15 @@
    "pitch": "The garment floats on an invisible form and turns slowly under a spotlight with light haze. Premium and dramatic.",
    "best_for": "New drops and launches, premium jackets and jerseys, website heroes. No model needed.",
    "who": "none",
-   "shots": ["ghost_spin"],
-   "edit": ["ghost_spin", "detail", "ghost_spin", "detail"]
+   "shots": [
+    "ghost_spin"
+   ],
+   "edit": [
+    "ghost_spin",
+    "detail",
+    "ghost_spin",
+    "detail"
+   ]
   },
   {
    "id": "feature",
@@ -81,9 +237,18 @@
    "pitch": "Shows one feature working in close-up: water beading off a jacket, a fabric stretching, wind on a shell.",
    "best_for": "Outerwear, rainwear, activewear, compression and technical fabrics.",
    "who": "model",
-   "needs": ["feature"],
-   "shots": ["feature"],
-   "edit": ["feature", "detail", "turn", "hero_close"]
+   "needs": [
+    "feature"
+   ],
+   "shots": [
+    "feature"
+   ],
+   "edit": [
+    "feature",
+    "detail",
+    "turn",
+    "hero_close"
+   ]
   },
   {
    "id": "ugc",
@@ -91,8 +256,14 @@
    "pitch": "A phone-camera mirror try-on: the wearer shows the fit, turns and looks pleased. Feels like a real customer post.",
    "best_for": "TikTok and Reels ads, D2C brands, casual wear and activewear.",
    "who": "model",
-   "shots": ["mirror"],
-   "edit": ["mirror", "detail_hands", "mirror"]
+   "shots": [
+    "mirror"
+   ],
+   "edit": [
+    "mirror",
+    "detail_hands",
+    "mirror"
+   ]
   },
   {
    "id": "team",
@@ -100,9 +271,18 @@
    "pitch": "A squad in the same kit walks out of the tunnel towards the camera, shoulder to shoulder.",
    "best_for": "Teamwear and club kits. Shows the kit as a set. Faces may vary between players.",
    "who": "team",
-   "needs": ["sport"],
-   "shots": ["walkout"],
-   "edit": ["walkout", "action", "detail", "hero_close"]
+   "needs": [
+    "sport"
+   ],
+   "shots": [
+    "walkout"
+   ],
+   "edit": [
+    "walkout",
+    "action",
+    "detail",
+    "hero_close"
+   ]
   },
   {
    "id": "flatlay",
@@ -111,8 +291,16 @@
    "best_for": "Etsy and Instagram. Shows the product as it arrives and as it looks on.",
    "who": "model",
    "min_seconds": 10,
-   "shots": ["flatlay", "turn"],
-   "edit": ["flatlay", "turn", "detail", "hero_close"]
+   "shots": [
+    "flatlay",
+    "turn"
+   ],
+   "edit": [
+    "flatlay",
+    "turn",
+    "detail",
+    "hero_close"
+   ]
   },
   {
    "id": "factory",
@@ -121,8 +309,21 @@
    "best_for": "Manufacturers selling to brands and wholesalers: Alibaba, B2B websites, LinkedIn.",
    "who": "model",
    "min_seconds": 20,
-   "shots": ["process_cut", "process_sew", "process_decorate", "process_check", "hero_close"],
-   "edit": ["process_cut", "process_sew", "process_decorate", "process_check", "turn", "hero_close"]
+   "shots": [
+    "process_cut",
+    "process_sew",
+    "process_decorate",
+    "process_check",
+    "hero_close"
+   ],
+   "edit": [
+    "process_cut",
+    "process_sew",
+    "process_decorate",
+    "process_check",
+    "turn",
+    "hero_close"
+   ]
   },
   {
    "id": "colorways",
@@ -130,13 +331,18 @@
    "pitch": "Quick shots of the same design in each colourway, one after another.",
    "best_for": "Products that come in several colours. Needs a front photo for each colourway.",
    "who": "model",
-   "needs": ["colorways"],
+   "needs": [
+    "colorways"
+   ],
    "min_seconds": 10,
-   "shots": ["colorway"],
-   "edit": ["colorway"]
+   "shots": [
+    "colorway"
+   ],
+   "edit": [
+    "colorway"
+   ]
   }
  ],
-
  "shots": {
   "turn": {
    "who": "model",
@@ -190,7 +396,8 @@
    "who": "mannequin",
    "opening": "the {noun} on the mannequin exactly as in the first product photo, the whole mannequin and garment centred in the frame, facing the camera",
    "action": "The mannequin turns slowly on its stand through one full circle at an even pace: front, side, back, other side, and ends facing the camera again. Only the mannequin and the {noun} turn; the {noun} stays on it without moving or changing shape. The background, floor and light do not move or change.",
-   "camera": "Completely still, locked-off camera; no zoom, no pan"
+   "camera": "Completely still, locked-off camera; no zoom, no pan",
+   "from_photo": true
   },
   "ghost_spin": {
    "who": "none",
@@ -261,16 +468,143 @@
    "opening": "a quality inspector's hands lay a finished {noun} on a white inspection table",
    "action": "The inspector checks the seams and the print with a measuring tape, smooths the garment and folds it neatly.",
    "camera": "Overhead three-quarter angle, slow push-in"
+  },
+  "flatlay_walk": {
+   "who": "none",
+   "flat": true,
+   "lead": "flatlay",
+   "opening": "the {noun} laid perfectly flat on {surface}, seen from directly above, exactly as in the first product photo",
+   "action": "Filmed handheld like a phone video: the camera starts directly above the {noun}, slowly lowers to a low angle and glides around one side of it, then skims close over the fabric, the prints and the stitching. The {noun} does not move.",
+   "camera": "Handheld phone-style camera, smooth with a slight natural sway",
+   "from_photo": true
+  },
+  "flatlay_hands": {
+   "who": "hands",
+   "flat": true,
+   "lead": "flatlay",
+   "opening": "the {noun} laid perfectly flat on {surface}, seen from above at a slight angle, exactly as in the first product photo, with no hands in the frame yet",
+   "action": "Two hands enter the frame from the bottom edge, gently lift the collar to show the neck label, run a thumb along a seam to show the stitching, flip up the hem for a moment to show the inside, then smooth the {noun} flat again and leave the frame. Only hands and forearms are visible; the {noun} keeps its shape and prints.",
+   "camera": "Steady overhead three-quarter angle with a slow push-in",
+   "from_photo": true
+  },
+  "flatlay_unfold": {
+   "who": "hands",
+   "flat": true,
+   "lead": "flatlay",
+   "opening": "the {noun} neatly folded into a square on {surface}, seen from above, part of its front print visible",
+   "action": "Two hands unfold the {noun} one fold at a time and spread it out flat, revealing the full front; the hands smooth it out and leave the frame. At the end the {noun} lies flat exactly as in the product photos.",
+   "camera": "Locked top-down camera, the whole {noun} in frame when unfolded"
+  },
+  "unboxing": {
+   "who": "hands",
+   "flat": true,
+   "lead": "front",
+   "opening": "a closed plain kraft mailer box with no printing on {surface}, seen from a high three-quarter angle",
+   "action": "Two hands open the box lid, fold back white tissue paper, lift the {noun} out by the shoulders and hold it up to the camera so the front is fully visible. Only hands and forearms are visible.",
+   "camera": "High three-quarter angle that tilts up gently as the {noun} is lifted"
+  },
+  "flatlay_light": {
+   "who": "none",
+   "flat": true,
+   "lead": "flatlay",
+   "opening": "the {noun} laid perfectly flat on {surface} in soft low light, seen from directly above, exactly as in the first product photo",
+   "action": "The camera does not move. A soft beam of light sweeps slowly across the {noun} from one side to the other, raking across the fabric so the texture, stitching, embroidery and prints catch the light, then the even light returns. The {noun} does not move.",
+   "camera": "Completely still, locked-off overhead camera",
+   "from_photo": true
+  },
+  "packing": {
+   "who": "hands",
+   "flat": true,
+   "lead": "flatlay",
+   "setting": "a clean packing table in a bright garment factory dispatch area",
+   "opening": "the {noun} laid flat on a clean white packing table, a clear polybag and an open cardboard carton beside it",
+   "action": "Two hands fold the {noun} neatly in thirds, slide it into the clear polybag, press a small blank size sticker on the bag and place it into the carton. Only hands and forearms are visible.",
+   "camera": "Steady three-quarter overhead angle"
   }
  },
-
  "destinations": {
-  "reels": {"name": "Instagram Reels / Facebook Reels", "aspect": "portrait", "min": 5, "max": 60, "ideal": [8, 15, 30], "sound": "keep"},
-  "tiktok": {"name": "TikTok", "aspect": "portrait", "min": 5, "max": 60, "ideal": [8, 15, 30], "sound": "keep"},
-  "shorts": {"name": "YouTube Shorts", "aspect": "portrait", "min": 5, "max": 60, "ideal": [15, 30], "sound": "keep"},
-  "etsy": {"name": "Etsy listing video", "aspect": "landscape", "min": 5, "max": 15, "ideal": [8, 10, 15], "sound": "mute", "note": "Etsy accepts 5 to 15 seconds, up to 100 MB, and removes the sound."},
-  "alibaba": {"name": "Alibaba.com product video", "aspect": "landscape", "min": 5, "max": 60, "ideal": [20, 30], "sound": "keep", "note": "Check the current video limits in Alibaba Seller Center when uploading."},
-  "website": {"name": "Website or product page", "aspect": "landscape", "min": 5, "max": 60, "ideal": [10, 20, 30], "sound": "keep"},
-  "other": {"name": "Other", "aspect": "portrait", "min": 5, "max": 60, "ideal": [10, 15], "sound": "keep"}
+  "reels": {
+   "name": "Instagram Reels / Facebook Reels",
+   "aspect": "portrait",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    8,
+    15,
+    30
+   ],
+   "sound": "keep"
+  },
+  "tiktok": {
+   "name": "TikTok",
+   "aspect": "portrait",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    8,
+    15,
+    30
+   ],
+   "sound": "keep"
+  },
+  "shorts": {
+   "name": "YouTube Shorts",
+   "aspect": "portrait",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    15,
+    30
+   ],
+   "sound": "keep"
+  },
+  "etsy": {
+   "name": "Etsy listing video",
+   "aspect": "landscape",
+   "min": 5,
+   "max": 15,
+   "ideal": [
+    8,
+    10,
+    15
+   ],
+   "sound": "mute",
+   "note": "Etsy accepts 5 to 15 seconds, up to 100 MB, and removes the sound."
+  },
+  "alibaba": {
+   "name": "Alibaba.com product video",
+   "aspect": "landscape",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    20,
+    30
+   ],
+   "sound": "keep",
+   "note": "Check the current video limits in Alibaba Seller Center when uploading."
+  },
+  "website": {
+   "name": "Website or product page",
+   "aspect": "landscape",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    10,
+    20,
+    30
+   ],
+   "sound": "keep"
+  },
+  "other": {
+   "name": "Other",
+   "aspect": "portrait",
+   "min": 5,
+   "max": 60,
+   "ideal": [
+    10,
+    15
+   ],
+   "sound": "keep"
+  }
  }
 }

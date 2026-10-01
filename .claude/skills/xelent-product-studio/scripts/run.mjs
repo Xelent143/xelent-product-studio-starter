@@ -43,7 +43,9 @@ const PROFILE = PROFILES[chosen] ?? PROFILES["2K"];
 const MODEL = PROFILE.model;
 const SIZE = PROFILE.imageSize;
 const CONC = +arg("--concurrency", "6");
-const MAX_TRIES = 4, MAX_NET = 8, STALE_MIN = 20, POLL_MS = 8000;
+// Xelent API refunds a still not finished after 30 minutes; wait longer than that before trying again, so nothing it
+// may still charge for is ever made twice.
+const MAX_TRIES = 4, MAX_NET = 8, STALE_MIN = 40, POLL_MS = 8000;
 
 const JOBS = existsSync(join(D, "jobs.json")) ? JSON.parse(readFileSync(join(D, "jobs.json"), "utf8")) : [];
 const LEDGER = join(D, "ledger.json");

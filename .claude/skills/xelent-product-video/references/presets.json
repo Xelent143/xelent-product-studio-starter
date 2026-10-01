@@ -5,71 +5,289 @@
    "id": "mannequin-listing",
    "name": "Mannequin 360° listing video",
    "pitch": "Your mannequin photo turns a full circle in front of the same background while the camera stays still. 10 s, horizontal 1080p, silent: ready for Etsy, Alibaba or a website.",
-   "style": "mannequin", "look": "as_photo", "destination": "etsy", "aspect": "landscape", "duration": 10, "resolution": "1080p", "sound": "mute", "transitions": "auto",
-   "needs": ["a photo of the garment on a mannequin (a back photo too, or the back is guessed)", "scene: one line describing the photo's background"]
+   "style": "mannequin",
+   "look": "as_photo",
+   "destination": "etsy",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "1080p",
+   "sound": "mute",
+   "transitions": "auto",
+   "needs": [
+    "a photo of the garment on a mannequin (a back photo too, or the back is guessed)",
+    "scene: one line describing the photo's background"
+   ]
   },
   {
    "id": "mannequin-reel",
    "name": "Mannequin 360° Reel",
    "pitch": "The same mannequin spin in vertical for Instagram, TikTok and Shorts. 10 s, 768p, silent (add music in the app).",
-   "style": "mannequin", "look": "as_photo", "destination": "reels", "aspect": "portrait", "duration": 10, "resolution": "768p", "sound": "mute", "transitions": "auto",
-   "needs": ["a photo of the garment on a mannequin (a back photo too, or the back is guessed)", "scene: one line describing the photo's background"]
+   "style": "mannequin",
+   "look": "as_photo",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "mute",
+   "transitions": "auto",
+   "needs": [
+    "a photo of the garment on a mannequin (a back photo too, or the back is guessed)",
+    "scene: one line describing the photo's background"
+   ]
+  },
+  {
+   "id": "flatlay-hands-reel",
+   "name": "Hands-on flat lay Reel",
+   "pitch": "Hands show the flat-laid product: the label, the stitching, the inside, then smooth it flat. 10 s vertical, 768p.",
+   "style": "flatlay_hands",
+   "look": "as_photo",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "a flat-lay photo of the product, or front and back photos (it is laid flat for you)",
+    "surface (optional): what it lies on"
+   ]
+  },
+  {
+   "id": "flatlay-walk-reel",
+   "name": "Flat lay walk-around Reel",
+   "pitch": "A handheld phone-style move over and around the flat lay, close over the fabric and prints. 10 s vertical, 768p.",
+   "style": "flatlay_walk",
+   "look": "as_photo",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "a flat-lay photo of the product, or front and back photos (it is laid flat for you)",
+    "surface (optional): what it lies on"
+   ]
+  },
+  {
+   "id": "flatlay-listing",
+   "name": "Flat lay listing video",
+   "pitch": "The walk-around in horizontal 1080p, silent: for Etsy, Alibaba and product pages. 10 s.",
+   "style": "flatlay_walk",
+   "look": "as_photo",
+   "destination": "etsy",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "1080p",
+   "sound": "mute",
+   "transitions": "auto",
+   "needs": [
+    "a flat-lay photo of the product, or front and back photos (it is laid flat for you)",
+    "surface (optional): what it lies on"
+   ]
+  },
+  {
+   "id": "unfold-reel",
+   "name": "Unfold reveal Reel",
+   "pitch": "Folded, then unfolded by hand to reveal the full print. 10 s vertical, 768p.",
+   "style": "flatlay_unfold",
+   "look": "as_photo",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "a flat-lay photo of the product, or front and back photos (it is laid flat for you)",
+    "surface (optional): what it lies on"
+   ]
+  },
+  {
+   "id": "unboxing-ad",
+   "name": "Unboxing ad",
+   "pitch": "Hands open a plain mailer box on a bed, lift the product out and hold it up. 12 s vertical for TikTok and Reels.",
+   "style": "unboxing",
+   "look": "ugc_home",
+   "destination": "tiktok",
+   "aspect": "portrait",
+   "duration": 12,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos"
+   ]
+  },
+  {
+   "id": "light-sweep-hero",
+   "name": "Light sweep hero",
+   "pitch": "A beam of light sweeps across the flat lay on black velvet, making texture and prints shine. 10 s horizontal 1080p for a website or launch.",
+   "style": "light_sweep",
+   "look": "luxury",
+   "destination": "website",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "1080p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "a flat-lay photo of the product, or front and back photos (it is laid flat for you)",
+    "surface (optional): what it lies on"
+   ]
+  },
+  {
+   "id": "packing-b2b",
+   "name": "Packed for shipment (B2B)",
+   "pitch": "Folded, bagged with a size sticker and boxed on a factory packing table. 10 s horizontal for Alibaba and wholesale buyers.",
+   "style": "packing",
+   "look": "factory_floor",
+   "destination": "alibaba",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos, or a flat-lay photo"
+   ]
   },
   {
    "id": "model-turn-listing",
    "name": "Model 360° listing video",
    "pitch": "A model turns slowly in a clean light-grey studio so buyers see every side. 10 s, horizontal 1080p, silent: the classic Etsy and Alibaba product video.",
-   "style": "turntable", "look": "studio", "destination": "etsy", "aspect": "landscape", "duration": 10, "resolution": "1080p", "sound": "mute", "transitions": "auto",
-   "needs": ["front and back photos", "model: AI (describe) or own (photo and consent)"]
+   "style": "turntable",
+   "look": "studio",
+   "destination": "etsy",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "1080p",
+   "sound": "mute",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos",
+    "model: AI (describe) or own (photo and consent)"
+   ]
   },
   {
    "id": "street-reel",
    "name": "Street-style Reel",
    "pitch": "A candid walk down a city street on an overcast day. 15 s vertical, 768p, with street sound.",
-   "style": "street", "look": "urban", "destination": "reels", "aspect": "portrait", "duration": 15, "resolution": "768p", "sound": "keep", "transitions": "auto",
-   "needs": ["front photo (back helps)", "model: AI (describe) or own (photo and consent)"]
+   "style": "street",
+   "look": "urban",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 15,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front photo (back helps)",
+    "model: AI (describe) or own (photo and consent)"
+   ]
   },
   {
    "id": "night-drop-reel",
    "name": "Night drop Reel",
    "pitch": "Lookbook poses on a rain-wet street under neon light, for a new drop. 15 s vertical, 768p.",
-   "style": "lookbook", "look": "neon", "destination": "reels", "aspect": "portrait", "duration": 15, "resolution": "768p", "sound": "keep", "transitions": "auto",
-   "needs": ["front and back photos", "model: AI (describe) or own (photo and consent)"]
+   "style": "lookbook",
+   "look": "neon",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 15,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos",
+    "model: AI (describe) or own (photo and consent)"
+   ]
   },
   {
    "id": "ugc-ad",
    "name": "UGC try-on ad",
    "pitch": "A phone-camera mirror try-on in a bright bedroom that feels like a real customer post. 12 s vertical for TikTok and Reels ads.",
-   "style": "ugc", "look": "ugc_home", "destination": "tiktok", "aspect": "portrait", "duration": 12, "resolution": "768p", "sound": "keep", "transitions": "auto",
-   "needs": ["front photo (back helps)", "model: AI (describe) or own (photo and consent)"]
+   "style": "ugc",
+   "look": "ugc_home",
+   "destination": "tiktok",
+   "aspect": "portrait",
+   "duration": 12,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front photo (back helps)",
+    "model: AI (describe) or own (photo and consent)"
+   ]
   },
   {
    "id": "sport-reel",
    "name": "Sport in action Reel",
    "pitch": "The kit worn playing its sport under stadium floodlights. 10 s vertical, 768p, with pitch sound.",
-   "style": "action", "look": "stadium", "destination": "reels", "aspect": "portrait", "duration": 10, "resolution": "768p", "sound": "keep", "transitions": "auto",
-   "needs": ["front and back photos", "model: AI (describe) or own (photo and consent)", "sport"]
+   "style": "action",
+   "look": "stadium",
+   "destination": "reels",
+   "aspect": "portrait",
+   "duration": 10,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos",
+    "model: AI (describe) or own (photo and consent)",
+    "sport"
+   ]
   },
   {
    "id": "launch-hero",
    "name": "Launch hero",
    "pitch": "No model: the garment floats and turns under a single spotlight on black. 10 s, horizontal 1080p, for a website hero or a launch post.",
-   "style": "hero_reveal", "look": "luxury", "destination": "website", "aspect": "landscape", "duration": 10, "resolution": "1080p", "sound": "keep", "transitions": "auto",
-   "needs": ["front and back photos"]
+   "style": "hero_reveal",
+   "look": "luxury",
+   "destination": "website",
+   "aspect": "landscape",
+   "duration": 10,
+   "resolution": "1080p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos"
+   ]
   },
   {
    "id": "quality-closeups",
    "name": "Quality close-ups for wholesale",
    "pitch": "Slow macro shots of the fabric, stitching and prints, then a floating turn. 20 s horizontal for Alibaba and B2B buyers, silent.",
-   "style": "detail", "look": "studio", "destination": "alibaba", "aspect": "landscape", "duration": 20, "resolution": "768p", "sound": "mute", "transitions": "auto",
-   "needs": ["front and back photos, plus a detail photo if they have one", "detail_focus: what to show close up (e.g. embroidery, zip, seams)"]
+   "style": "detail",
+   "look": "studio",
+   "destination": "alibaba",
+   "aspect": "landscape",
+   "duration": 20,
+   "resolution": "768p",
+   "sound": "mute",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos, plus a detail photo if they have one",
+    "detail_focus: what to show close up (e.g. embroidery, zip, seams)"
+   ]
   },
   {
    "id": "factory-story",
    "name": "Factory story for Alibaba",
    "pitch": "Cutting, stitching, printing or embroidery, a quality check, then the finished garment on a model. 30 s horizontal for Alibaba, a B2B website or LinkedIn.",
-   "style": "factory", "look": "factory_floor", "destination": "alibaba", "aspect": "landscape", "duration": 30, "resolution": "768p", "sound": "keep", "transitions": "auto",
-   "needs": ["front and back photos", "model: AI (describe) or own (photo and consent)", "factory.decoration: e.g. screen printing, sublimation, embroidery"]
+   "style": "factory",
+   "look": "factory_floor",
+   "destination": "alibaba",
+   "aspect": "landscape",
+   "duration": 30,
+   "resolution": "768p",
+   "sound": "keep",
+   "transitions": "auto",
+   "needs": [
+    "front and back photos",
+    "model: AI (describe) or own (photo and consent)",
+    "factory.decoration: e.g. screen printing, sublimation, embroidery"
+   ]
   }
  ]
 }

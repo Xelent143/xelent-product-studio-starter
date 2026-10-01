@@ -13,6 +13,8 @@
 | Leather jackets, premium pieces | Hero reveal, Runway walk, Lookbook poses | Luxury dark, Editorial |
 | Any product for wholesale buyers | Detail close-ups, Made in our factory, 360° turn | Clean studio, Factory floor |
 | A photo of the garment on a mannequin | Mannequin 360° (send a back photo too), Detail close-ups | Same as my photo |
+| A flat-lay photo (or only product photos) | Flat lay walk-around, Hands-on flat lay, Unfold reveal, Light sweep | Same as my photo, Urban street, Luxury dark |
+| Selling to wholesale buyers from stock | Hands-on flat lay, Packed for shipment, Detail close-ups | Same as my photo, Factory floor |
 
 | Where | Shape | Length | Style |
 |---|---|---|---|
@@ -53,6 +55,10 @@ chance for the product or face to drift, so check each one.
   the garment itself (fine lettering, katakana, barcodes) can blur or change a little; large graphics hold.
 - **The back without a back photo** (Mannequin 360°, 360° turn, Runway walk, Hero reveal): the model invents it.
   Ask for a back photo; if there is none, tell the user the back is a guess.
+- **Hands on garments** (hands-on, unfold, unboxing, packing): fingers can merge with the fabric or a print can
+  smear where a hand passes. Keep hand actions simple; redo with a note ("hands lift only the collar").
+- **Your photo redrawn:** an opening frame made from a photo can change small things (a stripe, a sleeve colour). With
+  the look Same as my photo and a photo of the right shape, the skill uses the photo itself instead.
 - **Team walk-out:** each player's face is different by design, and small kit details can vary between players.
   Say so to the user when they pick it.
 
