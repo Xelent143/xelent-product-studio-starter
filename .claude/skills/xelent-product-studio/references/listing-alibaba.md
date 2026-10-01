@@ -153,3 +153,17 @@ text, border, watermark or collage. See [image-direction.md](image-direction.md)
 - Prices not ascending by quantity or with more than 2 decimals.
 - Attribute value too long (over 70 characters) or a free-text sentence in an attribute.
 - Contact details or links in the description.
+
+## Editing a live product
+A product already on Alibaba is edited in place, never listed again (that makes a duplicate):
+
+1. `node scripts/xelent.mjs alibaba-product <listing_id>` reads it as Alibaba holds it now, and
+   `alibaba-score <listing_id>` reads Alibaba's quality score (out of 5).
+2. Write only the fields to change in `edit.json`: `title`, `keywords` (array of phrases), `description_html`,
+   `attributes` (`[{"name","value"}]`, set or added by name), `remove_attributes` (names), `weight` (kg),
+   `tiered_lead_time` (`[{"quantity","lead_time"}]`, days), `price_tiers`.
+3. `node scripts/xelent.mjs alibaba-edit <listing_id> edit.json` previews the before and after. Show it to the user.
+4. With their OK, run it again with `--apply`. Put every change for a product in one edit: Alibaba takes an edited
+   product offline until it approves it again (a few hours for the Huntgear products).
+5. `alibaba-edits <listing_id>` lists every edit with its before and after; `alibaba-undo <listing_id> <edit_id>`
+   puts the latest one back.

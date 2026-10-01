@@ -11,6 +11,9 @@
 //   node xelent.mjs alibaba-category "<title>"   the Alibaba category (id and path) a title would be filed under
 //   node xelent.mjs alibaba-product <listing_id> an Alibaba listing's live product: status, review state, category, attributes
 //   node xelent.mjs alibaba-attributes <category_id>  the attributes a category takes: required ones and accepted values
+//   node xelent.mjs alibaba-score <listing_id>   Alibaba's quality score for a live product
+//   node xelent.mjs alibaba-edit <listing_id> edit.json [--apply]   preview (default) or apply an edit to a live product
+//   node xelent.mjs alibaba-edits <listing_id>   a product's edit history;  alibaba-undo <listing_id> <edit_id> puts the latest back
 //   node xelent.mjs prices                       per-image credits at 2K and 4K, per-second video credits, and the balance
 //   node xelent.mjs jobs [--status failed] [--q text] [--from YYYY-MM-DD] [--to YYYY-MM-DD]   job history and totals
 //   node xelent.mjs ledger [--from YYYY-MM-DD] [--to YYYY-MM-DD]   credit ledger: every credit in and out, and whether it adds up
@@ -133,6 +136,10 @@ export const listingStatus = (id) => xelent(`/v1/listings/${id}`);
 export const alibabaCategory = (title, description = "") =>
   xelent(`/v1/marketplaces/alibaba/category?${new URLSearchParams({ title, ...(description ? { description } : {}) })}`);
 export const alibabaProduct = (listingId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba`);
+export const alibabaScore = (listingId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba/score`);
+export const alibabaEdit = (listingId, edit) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba`, { method: "PATCH", body: edit });
+export const alibabaEdits = (listingId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba/edits`);
+export const alibabaUndo = (listingId, editId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba/edits/${encodeURIComponent(editId)}/undo`, { method: "POST", body: {} });
 export const alibabaAttributes = (categoryId) => xelent(`/v1/marketplaces/alibaba/category/${encodeURIComponent(categoryId)}/attributes`);
 export const marketplaces = () => xelent("/v1/marketplaces");
 
@@ -207,6 +214,17 @@ async function cli() {
   if (cmd === "etsy-taxonomy") return console.log(JSON.stringify(await xelent(`/v1/marketplaces/etsy/taxonomy?q=${encodeURIComponent(rest.join(" "))}`), null, 1));
   if (cmd === "alibaba-category") return console.log(JSON.stringify(await alibabaCategory(rest.join(" ")), null, 1));
   if (cmd === "alibaba-product") return console.log(JSON.stringify(await alibabaProduct(rest[0] ?? ""), null, 1));
+  if (cmd === "alibaba-score") return console.log(JSON.stringify(await alibabaScore(rest[0] ?? ""), null, 1));
+  if (cmd === "alibaba-edits") return console.log(JSON.stringify(await alibabaEdits(rest[0] ?? ""), null, 1));
+  if (cmd === "alibaba-undo") return console.log(JSON.stringify(await alibabaUndo(rest[0] ?? "", rest[1] ?? ""), null, 1));
+  if (cmd === "alibaba-edit") {
+    const edit = JSON.parse(readFileSync(rest[1] ?? "", "utf8"));
+    const apply = rest.includes("--apply");
+    const r = await alibabaEdit(rest[0] ?? "", { ...edit, dry_run: !apply });
+    console.log(JSON.stringify(r, null, 1));
+    if (!apply) console.log("Preview only. Show the user the before and after; with their OK, run again with --apply. Applying takes the product offline until Alibaba approves it again.");
+    return;
+  }
   if (cmd === "alibaba-attributes") {
     const s = await alibabaAttributes(rest[0] ?? "");
     const line = (a) => `${a.required ? "REQUIRED  " : "          "}${a.name}${a.custom ? "" : " (only these values)"}${a.multi ? " (several allowed)" : ""}${a.values.length ? ": " + a.values.map((v) => v.name).join(" | ") : ""}`;
@@ -214,7 +232,7 @@ async function cli() {
     if (s.sale_attributes.length) console.log(`Options (sizes, colours; describe them in the listing, not as attributes):\n${s.sale_attributes.map(line).join("\n")}`);
     return;
   }
-  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 17).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 20).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
