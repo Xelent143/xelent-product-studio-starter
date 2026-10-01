@@ -37,10 +37,11 @@ it again and submits it.
 Brand, place of origin, currency and unit default to `studio.json` when left out.
 
 ## Category (set it; never leave it to Alibaba)
-A store may only publish in the categories Alibaba has approved for it. When no `category_id` is sent, Alibaba
-predicts one from the title, and a prediction outside the store's categories is refused, often with nothing more than
-"A system error occurred" and the code `PUB_BIZCHECK_CAT_PUB_RESTRICT`. So every Alibaba listing carries `category_id`
-(Alibaba's numeric leaf category) and `category` (its path, for the reader):
+Every Alibaba listing carries `category_id` (Alibaba's numeric leaf category) and `category` (its path, for the
+reader). A listing sent without one is filed by Alibaba itself, and that is what sank the Huntgear pilot: four of
+five listings were refused with only "A system error occurred" (`S_COMMON_INTERNAL_ERROR`); resubmitted unchanged
+except for `category_id`, all four went into review on the first attempt. Alibaba's category suggestion answers
+nothing about half the time for the same title, so do not rely on it:
 
 1. `node scripts/xelent.mjs alibaba-category "<title>"` shows the category Alibaba would choose. Show the user the
    path and ask whether it is right for the product and is one their store sells in.
@@ -75,16 +76,16 @@ After a submission, `published.json` records the category used (`given` or `pred
 
 ## Attributes (values up to 70 characters): the category's own, with its values
 Buyers filter on attributes, but each category has its own list, a few of them required, and some that take only
-fixed values. Alibaba refuses a listing that carries certain names outside its category, with nothing more than
-"A system error occurred" (`S_COMMON_INTERNAL_ERROR`). In the Huntgear pilot, `Collar`, `Closure Type`,
-`Waterproof Rating` and `Insulation` sank four listings in Hunting Wear, while `Fabric Weight` and `Fit Type` were kept.
+fixed values. Alibaba kept attribute names outside the category in the Huntgear pilot (Collar, Closure Type, Fit Type),
+but a missing required attribute or a value the category does not take can get a listing refused, and filters only
+work on the category's own attributes.
 
 1. Once the category is set, run `node scripts/xelent.mjs alibaba-attributes <category_id>`. It lists every attribute
    of the category, which are REQUIRED, and which take only fixed values.
 2. Fill every REQUIRED attribute (Hunting Wear: Place of Origin, Material). Use the category's names exactly, and for
    fixed-value attributes one of its values, e.g. Season `Autumn` not `Autumn, Winter`, Supply Type `Oem Service`.
-3. Put anything the category does not list (closure, collar, waterproof rating, insulation, fabric weight) in the
-   description's specification table instead of an attribute.
+3. Anything the category does not list (closure, collar, waterproof rating, insulation, fabric weight) also goes in the
+   description's specification table, where buyers read it; it may stay as an extra attribute.
 4. Sizes and colours are options (Alibaba's sale attributes), not attributes: give them in the description.
 
 `publish.mjs` (dry run) checks this against the live category and prints `~` warnings: required attributes missing,
@@ -142,8 +143,10 @@ text, border, watermark or collage. See [image-direction.md](image-direction.md)
   offered). No server or Cloudflare access is involved.
 
 ## Common rejections and fixes
-- `PUB_BIZCHECK_CAT_PUB_RESTRICT`, or "A system error occurred" with a predicted category: the store may not publish
-  in that category. Set `category_id` to one the store sells in (see Category) and submit again with `--force`.
+- "A system error occurred" (`S_COMMON_INTERNAL_ERROR`) with no category in `published.json`: the listing went
+  without one. Set `category_id` (see Category) and submit again with `--force`.
+- `PUB_BIZCHECK_CAT_PUB_RESTRICT`: the store may not publish in that category. Use a category the store already
+  sells in (`alibaba-product <listing_id>` of an accepted listing shows it).
 - Title or keywords contain a brand, league, club or event name: remove it.
 - Main image has text, a collage or a coloured background: regenerate the front on white.
 - Duplicate listings for colour variants: merge into one listing.
