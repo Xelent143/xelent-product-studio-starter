@@ -126,6 +126,7 @@ for (const t of todo) {
   const v = await validateListing(body).catch((e) => ({ valid: false, errors: [e.message] }));
   const errs = (v.errors ?? []).filter((e) => willHost || !/image/.test(e));
   if (errs.length) { console.log(`${t.key}: Xelent API found problems:\n  - ${errs.join("\n  - ")}`); failures++; continue; }
+  if (v.warnings?.length) console.log(`${t.key}: checked against Alibaba category ${v.category ? `${v.category.id} ${v.category.name ?? ""}`.trim() : "(none suggested)"}:\n  ~ ${v.warnings.join("\n  ~ ")}`);
   if (!SUBMIT) { console.log(`${t.key}: valid (${t.manifest.length} images). Not submitted: dry run.`); continue; }
 
   if (!connected[t.m]) {
@@ -137,7 +138,7 @@ for (const t of todo) {
     const r = await submitListing(body);
     pub.listings[t.key] = {
       listing_id: r.id, status: r.status, external_id: r.external_id, external_url: r.external_url, error: r.error,
-      ...(t.m === "alibaba" ? { category: r.category ?? null, alibaba_code: r.alibaba_code ?? null } : {}),
+      ...(t.m === "alibaba" ? { category: r.category ?? null, alibaba_code: r.alibaba_code ?? null, attempt: r.attempt ?? null, attribute_fit: r.attribute_fit ?? null } : {}),
       hash: t.hash, at: new Date().toISOString(),
     };
     save();

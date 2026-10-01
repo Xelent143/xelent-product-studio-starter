@@ -9,7 +9,8 @@
 //   node xelent.mjs etsy-reference               Etsy shipping / processing / return / partner ids for listings
 //   node xelent.mjs etsy-taxonomy "hoodies"      search Etsy category ids
 //   node xelent.mjs alibaba-category "<title>"   the Alibaba category (id and path) a title would be filed under
-//   node xelent.mjs alibaba-product <listing_id> an Alibaba listing's live product: status, review state, category id and path
+//   node xelent.mjs alibaba-product <listing_id> an Alibaba listing's live product: status, review state, category, attributes
+//   node xelent.mjs alibaba-attributes <category_id>  the attributes a category takes: required ones and accepted values
 //   node xelent.mjs prices                       per-image credits at 2K and 4K, per-second video credits, and the balance
 //   node xelent.mjs jobs [--status failed] [--q text] [--from YYYY-MM-DD] [--to YYYY-MM-DD]   job history and totals
 //   node xelent.mjs ledger [--from YYYY-MM-DD] [--to YYYY-MM-DD]   credit ledger: every credit in and out, and whether it adds up
@@ -132,6 +133,7 @@ export const listingStatus = (id) => xelent(`/v1/listings/${id}`);
 export const alibabaCategory = (title, description = "") =>
   xelent(`/v1/marketplaces/alibaba/category?${new URLSearchParams({ title, ...(description ? { description } : {}) })}`);
 export const alibabaProduct = (listingId) => xelent(`/v1/listings/${encodeURIComponent(listingId)}/alibaba`);
+export const alibabaAttributes = (categoryId) => xelent(`/v1/marketplaces/alibaba/category/${encodeURIComponent(categoryId)}/attributes`);
 export const marketplaces = () => xelent("/v1/marketplaces");
 
 // ---------------------------------------------------------------------------
@@ -205,7 +207,14 @@ async function cli() {
   if (cmd === "etsy-taxonomy") return console.log(JSON.stringify(await xelent(`/v1/marketplaces/etsy/taxonomy?q=${encodeURIComponent(rest.join(" "))}`), null, 1));
   if (cmd === "alibaba-category") return console.log(JSON.stringify(await alibabaCategory(rest.join(" ")), null, 1));
   if (cmd === "alibaba-product") return console.log(JSON.stringify(await alibabaProduct(rest[0] ?? ""), null, 1));
-  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 16).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  if (cmd === "alibaba-attributes") {
+    const s = await alibabaAttributes(rest[0] ?? "");
+    const line = (a) => `${a.required ? "REQUIRED  " : "          "}${a.name}${a.custom ? "" : " (only these values)"}${a.multi ? " (several allowed)" : ""}${a.values.length ? ": " + a.values.map((v) => v.name).join(" | ") : ""}`;
+    console.log(`Category ${s.category_id} attributes:\n${s.attributes.map(line).join("\n")}`);
+    if (s.sale_attributes.length) console.log(`Options (sizes, colours; describe them in the listing, not as attributes):\n${s.sale_attributes.map(line).join("\n")}`);
+    return;
+  }
+  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 17).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

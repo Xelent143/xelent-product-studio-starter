@@ -48,7 +48,10 @@ predicts one from the title, and a prediction outside the store's categories is 
    `node scripts/xelent.mjs alibaba-product <listing_id>` (the `listing_id` is in `published.json`) prints the live
    product's `category.id` and full `category.path`. A range (base layers, fleece, jackets, bibs, vests) usually needs a
    category per garment type, not one for all.
-3. If the user is unsure, they can find the path in Seller Center (Products > Manage Products > the accepted
+3. Alibaba's predictor sometimes answers nothing (it did for the Huntgear bibs five times running); set
+   `category_id` yourself rather than relying on it. Hunting apparel goes in Hunting Wear, `201270883`
+   (Sportswear & Outdoor Apparel / Sports & Outdoor Clothing / Hunting Wear).
+4. If the user is unsure, they can find the path in Seller Center (Products > Manage Products > the accepted
    product > Category) and the id with step 1 using a title of that kind.
 
 After a submission, `published.json` records the category used (`given` or `predicted`) and Alibaba's own error code
@@ -70,12 +73,24 @@ After a submission, `published.json` records the category used (`given` or `pred
 - Do not paste the range's shared research keywords onto every listing: "hunting fleece jacket" on a base layer, or
   "camouflage" on a solid-colour piece, misleads buyers and Alibaba's matching. `listing.py --check` warns about them.
 
-## Attributes (values up to 70 characters)
-Buyers filter on attributes, and a listing without them drops out of filtered results. Always include, when true:
-Material, Fabric Weight (GSM), Technics (decoration), Gender, Age Group, Style, Sleeve Style, Collar, Fit Type,
-Feature, Season, Pattern Type, Closure Type, Supply Type (OEM Service / ODM Service / In-Stock Items),
-Sportswear Type or Apparel Type, Size (the run), Colour (the colourways), Logo (custom logo accepted), Sample
-lead time, Place of Origin, Brand Name, Model Number. Use Alibaba's own attribute names and plain values.
+## Attributes (values up to 70 characters): the category's own, with its values
+Buyers filter on attributes, but each category has its own list, a few of them required, and some that take only
+fixed values. Alibaba refuses a listing that carries certain names outside its category, with nothing more than
+"A system error occurred" (`S_COMMON_INTERNAL_ERROR`). In the Huntgear pilot, `Collar`, `Closure Type`,
+`Waterproof Rating` and `Insulation` sank four listings in Hunting Wear, while `Fabric Weight` and `Fit Type` were kept.
+
+1. Once the category is set, run `node scripts/xelent.mjs alibaba-attributes <category_id>`. It lists every attribute
+   of the category, which are REQUIRED, and which take only fixed values.
+2. Fill every REQUIRED attribute (Hunting Wear: Place of Origin, Material). Use the category's names exactly, and for
+   fixed-value attributes one of its values, e.g. Season `Autumn` not `Autumn, Winter`, Supply Type `Oem Service`.
+3. Put anything the category does not list (closure, collar, waterproof rating, insulation, fabric weight) in the
+   description's specification table instead of an attribute.
+4. Sizes and colours are options (Alibaba's sale attributes), not attributes: give them in the description.
+
+`publish.mjs` (dry run) checks this against the live category and prints `~` warnings: required attributes missing,
+values the category does not take, names outside the category. If Alibaba still refuses a listing, Xelent API retries
+with only the category's own attributes, then only its required ones, and `published.json` records which attempt
+went through (`attempt`) and what was left out (`attribute_fit`).
 
 ## Description (HTML, up to 20,000 characters)
 Allowed: `h2 h3 p ul ol li table tr th td strong em br img`. No scripts, iframes, forms or links, no contact
